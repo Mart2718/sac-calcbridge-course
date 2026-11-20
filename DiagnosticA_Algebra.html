@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnostic Test A: Algebra — CalcBridge</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+  :root {
+    --teal:   #0D5C73;
+    --teal2:  #1B7A96;
+    --orange: #D4622A;
+    --gold:   #E8A020;
+    --green:  #2E7D32;
+    --red:    #C62828;
+    --bg:     #F4F7F9;
+    --card:   #FFFFFF;
+    --border: #D0DDE5;
+    --text:   #1A2A33;
+    --muted:  #5A7080;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg);
+         color: var(--text); font-size: 15px; line-height: 1.6; }
+
+  /* ── Header ── */
+  .site-header { background: var(--teal); color: white; padding: 0; }
+  .header-inner { max-width: 860px; margin: 0 auto; padding: 28px 24px 20px; }
+  .header-eyebrow { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+                    opacity: .75; margin-bottom: 4px; }
+  .header-title { font-size: 28px; font-weight: 700; margin-bottom: 2px; }
+  .header-sub { font-size: 14px; opacity: .85; }
+  .header-nav { background: var(--teal2); }
+  .header-nav-inner { max-width: 860px; margin: 0 auto; padding: 0 24px;
+                       display: flex; gap: 24px; }
+  .nav-link { color: rgba(255,255,255,.8); text-decoration: none; font-size: 13px;
+              padding: 10px 0; display: inline-block; border-bottom: 3px solid transparent; }
+  .nav-link:hover, .nav-link.active { color: #fff; border-bottom-color: var(--orange); }
+
+  /* ── Tally bar ── */
+  .tally-bar { background: white; border-bottom: 2px solid var(--border);
+               position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .tally-inner { max-width: 860px; margin: 0 auto; padding: 10px 24px;
+                 display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .tally-label { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .tally-chip { display: inline-flex; align-items: center; gap: 5px;
+                padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .chip-got  { background: #E8F5E9; color: var(--green); }
+  .chip-almost { background: #FFF8E1; color: #B26A00; }
+  .chip-need { background: #FFEBEE; color: var(--red); }
+  .tally-progress { flex: 1; min-width: 120px; }
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg,var(--teal),var(--teal2));
+                   border-radius: 3px; transition: width .4s; }
+  .progress-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Main layout ── */
+  .main { max-width: 860px; margin: 0 auto; padding: 28px 24px 60px; }
+  .intro-card { background: white; border: 1px solid var(--border); border-radius: 10px;
+                padding: 20px 24px; margin-bottom: 28px; border-left: 4px solid var(--teal); }
+  .intro-card h2 { font-size: 15px; color: var(--teal); margin-bottom: 6px; }
+  .intro-card p { font-size: 14px; color: var(--muted); }
+
+  /* ── Question card ── */
+  .q-section { margin-bottom: 10px; border-radius: 10px; overflow: hidden;
+               border: 1px solid var(--border); background: var(--card);
+               box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .q-header { padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px;
+              cursor: pointer; user-select: none; }
+  .q-header:hover { background: #F8FBFD; }
+  .q-num { width: 32px; height: 32px; background: var(--teal); color: white;
+           border-radius: 50%; display: flex; align-items: center; justify-content: center;
+           font-size: 14px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .q-text { flex: 1; font-size: 15px; font-weight: 600; }
+  .q-status { font-size: 11px; color: var(--muted); white-space: nowrap; padding-top: 4px; }
+  .q-chevron { color: var(--muted); transition: transform .25s; font-size: 18px; padding-top: 3px; }
+  .q-section.open .q-chevron { transform: rotate(180deg); }
+
+  .q-body { padding: 0 20px 20px 66px; display: none; }
+  .q-section.open .q-body { display: block; }
+
+  /* ── Part row ── */
+  .part { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;
+          overflow: hidden; }
+  .part-q { padding: 12px 16px; background: #FAFCFE; display: flex;
+             align-items: baseline; gap: 10px; }
+  .part-label { font-weight: 700; color: var(--teal); min-width: 22px; font-size: 14px; }
+  .part-math { font-size: 15px; flex: 1; }
+
+  .part-controls { padding: 8px 16px; background: #F4F7F9; display: flex;
+                   align-items: center; gap: 8px; flex-wrap: wrap; }
+  .btn-show { background: var(--orange); color: white; border: none; border-radius: 6px;
+              padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+              transition: background .2s; }
+  .btn-show:hover { background: #B8521F; }
+  .btn-show.shown { background: var(--muted); }
+
+  .rating-group { display: flex; gap: 6px; margin-left: auto; }
+  .btn-rate { border: 2px solid; border-radius: 6px; padding: 5px 10px;
+              font-size: 12px; font-weight: 700; cursor: pointer; background: white;
+              transition: all .15s; }
+  .btn-got  { border-color: var(--green); color: var(--green); }
+  .btn-almost { border-color: #B26A00; color: #B26A00; }
+  .btn-need { border-color: var(--red); color: var(--red); }
+  .btn-got.active  { background: var(--green); color: white; }
+  .btn-almost.active { background: #B26A00; color: white; }
+  .btn-need.active { background: var(--red); color: white; }
+
+  .part-answer { padding: 12px 16px; background: #E8F4F9; border-top: 1px solid #C5DDE8;
+                 display: none; }
+  .part-answer.visible { display: block; }
+  .answer-label { font-size: 11px; font-weight: 700; text-transform: uppercase;
+                  letter-spacing: 1px; color: var(--teal); margin-bottom: 4px; }
+  .answer-math { font-size: 15px; }
+  .answer-note { font-size: 13px; color: var(--muted); margin-top: 4px; font-style: italic; }
+
+  /* ── Study plan ── */
+  .study-plan { margin-top: 40px; background: white; border: 1px solid var(--border);
+                border-radius: 10px; overflow: hidden; }
+  .study-plan-header { background: var(--teal); color: white; padding: 16px 20px; }
+  .study-plan-header h2 { font-size: 16px; font-weight: 700; }
+  .study-plan-header p { font-size: 13px; opacity: .8; margin-top: 2px; }
+  .study-plan-body { padding: 20px; }
+  .plan-section { margin-bottom: 16px; }
+  .plan-section-title { font-size: 13px; font-weight: 700; text-transform: uppercase;
+                         letter-spacing: 1px; margin-bottom: 8px; }
+  .plan-empty { color: var(--muted); font-size: 13px; font-style: italic; }
+  .plan-item { background: var(--bg); border-radius: 6px; padding: 8px 12px;
+               margin-bottom: 4px; font-size: 14px; }
+  .plan-item span { font-weight: 600; color: var(--teal); }
+  #plan-got  .plan-section-title { color: var(--green); }
+  #plan-almost .plan-section-title { color: #B26A00; }
+  #plan-need .plan-section-title { color: var(--red); }
+
+  
+  /* ── Video review card (bottom) ── */
+  .vid-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    margin-top: 40px;
+  }
+  .vid-card-header {
+    background: var(--teal); color: white;
+    padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .vid-card-header h2 { font-size: 16px; font-weight: 700; margin: 0; }
+  .vid-card-header p  { font-size: 13px; opacity: .8; margin: 2px 0 0; }
+  .vid-thumb-wrap {
+    position: relative; display: block;
+    background: #000; cursor: pointer;
+    text-decoration: none;
+  }
+  .vid-thumb-wrap img {
+    display: block; width: 100%;
+    aspect-ratio: 16/9; object-fit: cover; opacity: .85;
+    transition: opacity .2s;
+  }
+  .vid-thumb-wrap:hover img { opacity: 1; }
+  .vid-play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px; height: 72px;
+    background: rgba(0,0,0,.75); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .vid-thumb-wrap:hover .vid-play-btn { background: #FF0000; }
+  .vid-play-btn svg { width: 32px; height: 32px; fill: white; margin-left: 4px; }
+  .vid-card-footer {
+    padding: 14px 20px; background: #F4F7F9;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .vid-card-footer p { font-size: 13px; color: var(--muted); margin: 0; }
+  .vid-yt-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #FF0000; color: white; text-decoration: none;
+    padding: 8px 16px; border-radius: 6px;
+    font-size: 13px; font-weight: 700;
+    transition: background .2s; white-space: nowrap;
+  }
+  .vid-yt-link:hover { background: #CC0000; }
+
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Santa Ana College &nbsp;·&nbsp; Mathematics Department</div>
+    <div class="header-title">CalcBridge Math Academy</div>
+    <div style="font-size:17px;font-weight:500;opacity:.88;margin-top:2px;">Diagnostic Test A: Algebra</div>
+    <div class="header-sub">Building the Bridge to Calculus &nbsp;·&nbsp; Calculus Readiness Boot Camp</div>
+  </div>
+  <nav class="header-nav"><div class="header-nav-inner"><a class="nav-link" href="index.html">&#x2302; Home</a>
+<a class="nav-link active" href="DiagnosticA_Algebra.html">Test A: Algebra</a>
+<a class="nav-link" href="DiagnosticB_AnalyticGeometry.html">Test B: Analytic Geometry</a>
+<a class="nav-link" href="DiagnosticC_Functions.html">Test C: Functions</a>
+<a class="nav-link" href="DiagnosticD_Trigonometry.html">Test D: Trigonometry</a>
+</div></nav>
+</header>
+
+<!-- Tally bar -->
+<div class="tally-bar">
+  <div class="tally-inner">
+    <span class="tally-label">My ratings:</span>
+    <span class="tally-chip chip-got">✓ Got It: <span id="t-got">0</span></span>
+    <span class="tally-chip chip-almost">≈ Almost: <span id="t-almost">0</span></span>
+    <span class="tally-chip chip-need">✗ Need Practice: <span id="t-need">0</span></span>
+    <div class="tally-progress">
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="progress-label" id="prog-label">0 of ? parts rated</div>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+  <div class="intro-card">
+    <h2>How to use this page</h2>
+    <p>Work each problem on paper first. Then click <strong>Show Answer</strong> to check your work. Rate yourself honestly — your study plan at the bottom will update in real time.</p>
+  </div>
+
+  
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">1</div>
+    <div class="q-text">Evaluate each expression without using a calculator.</div>
+    <div class="q-status">0/6 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q1a" data-qtxt="(-3)^4">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$(-3)^4$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$81$</div>
+    <div class="answer-note">A negative number raised to an even power is positive: $(-3)^4 = (-3)(-3)(-3)(-3) = 81$</div>
+  </div>
+</div>
+<div class="part" data-id="q1b" data-qtxt="-3^4">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$-3^4$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$-81$</div>
+    <div class="answer-note">The exponent applies to $3$ only, not to the negative sign: $-(3^4) = -81$</div>
+  </div>
+</div>
+<div class="part" data-id="q1c" data-qtxt="3^{-4}">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$3^{-4}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{1}{81}$</div>
+    <div class="answer-note">Negative exponent: $3^{-4} = \dfrac{1}{3^4} = \dfrac{1}{81}$</div>
+  </div>
+</div>
+<div class="part" data-id="q1d" data-qtxt="\dfrac{5^{23}}{5^{21}}">
+  <div class="part-q">
+    <div class="part-label">(d)</div>
+    <div class="part-math">$\dfrac{5^{23}}{5^{21}}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$5^2 = 25$</div>
+    <div class="answer-note">Quotient rule: $5^{23-21} = 5^2 = 25$</div>
+  </div>
+</div>
+<div class="part" data-id="q1e" data-qtxt="\left(\dfrac{2}{3}\right)^{-2}">
+  <div class="part-q">
+    <div class="part-label">(e)</div>
+    <div class="part-math">$\left(\dfrac{2}{3}\right)^{-2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{9}{4}$</div>
+    <div class="answer-note">Flip the fraction: $\left(\dfrac{3}{2}\right)^2 = \dfrac{9}{4}$</div>
+  </div>
+</div>
+<div class="part" data-id="q1f" data-qtxt="16^{-3/4}">
+  <div class="part-q">
+    <div class="part-label">(f)</div>
+    <div class="part-math">$16^{-3/4}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{1}{8}$</div>
+    <div class="answer-note">$16^{-3/4} = \dfrac{1}{16^{3/4}} = \dfrac{1}{(\sqrt[4]{16})^3} = \dfrac{1}{2^3} = \dfrac{1}{8}$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">2</div>
+    <div class="q-text">Simplify each expression. Write your answer without negative exponents.</div>
+    <div class="q-status">0/3 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q2a" data-qtxt="\sqrt{200} - \sqrt{32}">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\sqrt{200} - \sqrt{32}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$6\sqrt{2}$</div>
+    <div class="answer-note">$\sqrt{200} = 10\sqrt{2}$, $\sqrt{32} = 4\sqrt{2}$, so the result is $6\sqrt{2}$</div>
+  </div>
+</div>
+<div class="part" data-id="q2b" data-qtxt="(3a^3b^3)(4ab^2)^2">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$(3a^3b^3)(4ab^2)^2$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$48a^5b^7$</div>
+    <div class="answer-note">$(3a^3b^3)(16a^2b^4) = 48a^{3+2}b^{3+4} = 48a^5b^7$</div>
+  </div>
+</div>
+<div class="part" data-id="q2c" data-qtxt="\left(\dfrac{3x^{3/2}y^3}{x^2 y^{-1/2}}\right)^{-2}">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$\left(\dfrac{3x^{3/2}y^3}{x^2 y^{-1/2}}\right)^{-2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{x}{9y^7}$</div>
+    <div class="answer-note">Flip and simplify inside first: $\left(\dfrac{x^2 y^{-1/2}}{3x^{3/2}y^3}\right)^2 = \left(\dfrac{x^{1/2}}{3y^{7/2}}\right)^2 = \dfrac{x}{9y^7}$ &nbsp;($x&gt;0,\; y&gt;0$)</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">3</div>
+    <div class="q-text">Expand and simplify.</div>
+    <div class="q-status">0/5 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q3a" data-qtxt="3(x+6) + 4(2x-5)">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$3(x+6) + 4(2x-5)$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$11x - 2$</div>
+    
+  </div>
+</div>
+<div class="part" data-id="q3b" data-qtxt="(x+3)(4x-5)">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$(x+3)(4x-5)$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$4x^2 + 7x - 15$</div>
+    
+  </div>
+</div>
+<div class="part" data-id="q3c" data-qtxt="(\sqrt{a}+\sqrt{b})(\sqrt{a}-\sqrt{b})">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$(\sqrt{a}+\sqrt{b})(\sqrt{a}-\sqrt{b})$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$a - b$</div>
+    <div class="answer-note">Difference of squares pattern &nbsp;($a \geq 0,\; b \geq 0$)</div>
+  </div>
+</div>
+<div class="part" data-id="q3d" data-qtxt="(2x+3)^2">
+  <div class="part-q">
+    <div class="part-label">(d)</div>
+    <div class="part-math">$(2x+3)^2$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$4x^2 + 12x + 9$</div>
+    <div class="answer-note">Use $(A+B)^2 = A^2 + 2AB + B^2$</div>
+  </div>
+</div>
+<div class="part" data-id="q3e" data-qtxt="(x+2)^3">
+  <div class="part-q">
+    <div class="part-label">(e)</div>
+    <div class="part-math">$(x+2)^3$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x^3 + 6x^2 + 12x + 8$</div>
+    <div class="answer-note">Use $(A+B)^3 = A^3 + 3A^2B + 3AB^2 + B^3$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">4</div>
+    <div class="q-text">Factor each expression.</div>
+    <div class="q-status">0/6 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q4a" data-qtxt="4x^2 - 25">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$4x^2 - 25$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(2x+5)(2x-5)$</div>
+    <div class="answer-note">Difference of two squares</div>
+  </div>
+</div>
+<div class="part" data-id="q4b" data-qtxt="2x^2 + 5x - 12">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$2x^2 + 5x - 12$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(2x-3)(x+4)$</div>
+    
+  </div>
+</div>
+<div class="part" data-id="q4c" data-qtxt="x^3 - 3x^2 - 4x + 12">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$x^3 - 3x^2 - 4x + 12$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(x-2)(x+2)(x-3)$</div>
+    <div class="answer-note">Factor by grouping: $x^2(x-3) - 4(x-3) = (x^2-4)(x-3)$</div>
+  </div>
+</div>
+<div class="part" data-id="q4d" data-qtxt="x^4 + 27x">
+  <div class="part-q">
+    <div class="part-label">(d)</div>
+    <div class="part-math">$x^4 + 27x$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x(x+3)(x^2-3x+9)$</div>
+    <div class="answer-note">$x(x^3+27) = x(x+3)(x^2-3x+9)$ — sum of cubes</div>
+  </div>
+</div>
+<div class="part" data-id="q4e" data-qtxt="3x^{3/2} - 9x^{1/2} + 6x^{-1/2}">
+  <div class="part-q">
+    <div class="part-label">(e)</div>
+    <div class="part-math">$3x^{3/2} - 9x^{1/2} + 6x^{-1/2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$3x^{-1/2}(x-1)(x-2)$</div>
+    <div class="answer-note">Factor out $3x^{-1/2}$: $3x^{-1/2}(x^2-3x+2)$ &nbsp;($x&gt;0$)</div>
+  </div>
+</div>
+<div class="part" data-id="q4f" data-qtxt="x^3y - 4xy">
+  <div class="part-q">
+    <div class="part-label">(f)</div>
+    <div class="part-math">$x^3y - 4xy$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$xy(x-2)(x+2)$</div>
+    
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">5</div>
+    <div class="q-text">Simplify the rational expression.</div>
+    <div class="q-status">0/4 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q5a" data-qtxt="\dfrac{x^2+3x+2}{x^2-x-2}">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\dfrac{x^2+3x+2}{x^2-x-2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{x+2}{x-2}$</div>
+    <div class="answer-note">Factor: $\dfrac{(x+1)(x+2)}{(x+1)(x-2)} = \dfrac{x+2}{x-2}$ &nbsp;($x \neq -1,\; x \neq 2$)</div>
+  </div>
+</div>
+<div class="part" data-id="q5b" data-qtxt="\dfrac{2x^2-x-1}{x^2-9} \cdot \dfrac{x+3}{2x+1}">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$\dfrac{2x^2-x-1}{x^2-9} \cdot \dfrac{x+3}{2x+1}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{x-1}{x-3}$</div>
+    <div class="answer-note">Factor: $\dfrac{(2x+1)(x-1)}{(x+3)(x-3)} \cdot \dfrac{x+3}{2x+1} = \dfrac{x-1}{x-3}$ &nbsp;($x \neq \pm 3,\; x \neq -\tfrac{1}{2}$)</div>
+  </div>
+</div>
+<div class="part" data-id="q5c" data-qtxt="\dfrac{x^2}{x^2-4} - \dfrac{x+1}{x+2}">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$\dfrac{x^2}{x^2-4} - \dfrac{x+1}{x+2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{1}{x-2}$</div>
+    <div class="answer-note">Common denominator $(x+2)(x-2)$: $\dfrac{x^2-(x+1)(x-2)}{(x^2-4)} = \dfrac{x+2}{(x+2)(x-2)} = \dfrac{1}{x-2}$ &nbsp;($x \neq \pm 2$)</div>
+  </div>
+</div>
+<div class="part" data-id="q5d" data-qtxt="\dfrac{\dfrac{y}{x} - \dfrac{x}{y}}{\dfrac{1}{y} - \dfrac{1}{x}}">
+  <div class="part-q">
+    <div class="part-label">(d)</div>
+    <div class="part-math">$\dfrac{\dfrac{y}{x} - \dfrac{x}{y}}{\dfrac{1}{y} - \dfrac{1}{x}}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$-(x+y)$</div>
+    <div class="answer-note">Multiply numerator and denominator by $xy$: $\dfrac{y^2-x^2}{x-y} = \dfrac{(y-x)(y+x)}{x-y} = -(x+y)$ &nbsp;($x \neq 0,\; y \neq 0,\; x \neq y$)</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">6</div>
+    <div class="q-text">Rationalize the expression and simplify.</div>
+    <div class="q-status">0/2 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q6a" data-qtxt="\dfrac{\sqrt{10}}{\sqrt{5}-2}">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\dfrac{\sqrt{10}}{\sqrt{5}-2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$5\sqrt{2}+2\sqrt{10}$</div>
+    <div class="answer-note">Multiply by $\dfrac{\sqrt{5}+2}{\sqrt{5}+2}$: numerator $= \sqrt{50}+2\sqrt{10} = 5\sqrt{2}+2\sqrt{10}$, denominator $= 5-4 = 1$</div>
+  </div>
+</div>
+<div class="part" data-id="q6b" data-qtxt="\dfrac{\sqrt{4+h}-2}{h}">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$\dfrac{\sqrt{4+h}-2}{h}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{1}{\sqrt{4+h}+2}$</div>
+    <div class="answer-note">Multiply by $\dfrac{\sqrt{4+h}+2}{\sqrt{4+h}+2}$: numerator becomes $h$, cancel with denominator &nbsp;($h \neq 0,\; h \geq -4$)</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">7</div>
+    <div class="q-text">Rewrite by completing the square.</div>
+    <div class="q-status">0/2 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q7a" data-qtxt="x^2 + x + 1">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$x^2 + x + 1$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\left(x + \dfrac{1}{2}\right)^2 + \dfrac{3}{4}$</div>
+    
+  </div>
+</div>
+<div class="part" data-id="q7b" data-qtxt="2x^2 - 12x + 11">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$2x^2 - 12x + 11$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$2(x-3)^2 - 7$</div>
+    <div class="answer-note">$2(x^2-6x)+11 = 2(x^2-6x+9-9)+11 = 2(x-3)^2 - 18+11$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">8</div>
+    <div class="q-text">Solve the equation. (Find only the real solutions.)</div>
+    <div class="q-status">0/7 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q8a" data-qtxt="x + 5 = 14 - \tfrac{1}{2}x">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$x + 5 = 14 - \tfrac{1}{2}x$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = 6$</div>
+    
+  </div>
+</div>
+<div class="part" data-id="q8b" data-qtxt="\dfrac{2x}{x+1} = 2x - 1">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$\dfrac{2x}{x+1} = 2x - 1$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = -\dfrac{1}{2} \text{ or } x = 1$</div>
+    <div class="answer-note">Multiply both sides by $(x+1)$, $x\neq -1$: $2x = (2x-1)(x+1) = 2x^2+x-1$. Rearrange: $2x^2-x-1=0$, factor $(2x+1)(x-1)=0$. Both solutions satisfy the original equation.</div>
+  </div>
+</div>
+<div class="part" data-id="q8c" data-qtxt="x^2 - x - 12 = 0">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$x^2 - x - 12 = 0$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = -3 \text{ or } x = 4$</div>
+    <div class="answer-note">Factor: $(x+3)(x-4) = 0$</div>
+  </div>
+</div>
+<div class="part" data-id="q8d" data-qtxt="2x^2 + 4x + 1 = 0">
+  <div class="part-q">
+    <div class="part-label">(d)</div>
+    <div class="part-math">$2x^2 + 4x + 1 = 0$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = -1 \pm \dfrac{\sqrt{2}}{2}$</div>
+    <div class="answer-note">Quadratic formula: $x = \dfrac{-4 \pm \sqrt{16-8}}{4} = \dfrac{-4 \pm 2\sqrt{2}}{4}$</div>
+  </div>
+</div>
+<div class="part" data-id="q8e" data-qtxt="x^4 - 3x^2 + 2 = 0">
+  <div class="part-q">
+    <div class="part-label">(e)</div>
+    <div class="part-math">$x^4 - 3x^2 + 2 = 0$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = \pm 1 \text{ or } x = \pm\sqrt{2}$</div>
+    <div class="answer-note">Let $u = x^2$: $(u-1)(u-2) = 0$</div>
+  </div>
+</div>
+<div class="part" data-id="q8f" data-qtxt="3|x-4| = 10">
+  <div class="part-q">
+    <div class="part-label">(f)</div>
+    <div class="part-math">$3|x-4| = 10$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = \dfrac{2}{3} \text{ or } x = \dfrac{22}{3}$</div>
+    
+  </div>
+</div>
+<div class="part" data-id="q8g" data-qtxt="2x(4-x)^{-1/2} - 3\sqrt{4-x} = 0">
+  <div class="part-q">
+    <div class="part-label">(g)</div>
+    <div class="part-math">$2x(4-x)^{-1/2} - 3\sqrt{4-x} = 0$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = \dfrac{12}{5}$</div>
+    <div class="answer-note">Multiply through by $(4-x)^{1/2}$: $2x - 3(4-x) = 0 \Rightarrow 5x = 12$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">9</div>
+    <div class="q-text">Solve each inequality. Write your answer using interval notation.</div>
+    <div class="q-status">0/5 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q9a" data-qtxt="-4 \leq 5 - 3x \leq 17">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$-4 \leq 5 - 3x \leq 17$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$[-4, 3)$</div>
+    <div class="answer-note">Subtract 5: $-9 \leq -3x \leq 12$, divide by $-3$ (flip inequalities): $-4 \leq x < 3$</div>
+  </div>
+</div>
+<div class="part" data-id="q9b" data-qtxt="x^2 < 2x + 8">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$x^2 &lt; 2x + 8$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(-2, 4)$</div>
+    <div class="answer-note">$x^2 - 2x - 8 < 0$, factor $(x+2)(x-4) < 0$</div>
+  </div>
+</div>
+<div class="part" data-id="q9c" data-qtxt="x(x-1)(x+2) > 0">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$x(x-1)(x+2) &gt; 0$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(-2, 0) \cup (1, \infty)$</div>
+    <div class="answer-note">Sign chart with critical values $x = -2, 0, 1$</div>
+  </div>
+</div>
+<div class="part" data-id="q9d" data-qtxt="|x - 4| < 3">
+  <div class="part-q">
+    <div class="part-label">(d)</div>
+    <div class="part-math">$|x - 4| &lt; 3$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(1, 7)$</div>
+    <div class="answer-note">$-3 < x-4 < 3 \Rightarrow 1 < x < 7$</div>
+  </div>
+</div>
+<div class="part" data-id="q9e" data-qtxt="\dfrac{2x-3}{x+1} \geq 1">
+  <div class="part-q">
+    <div class="part-label">(e)</div>
+    <div class="part-math">$\dfrac{2x-3}{x+1} \geq 1$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(-\infty, -1) \cup [4, \infty)$</div>
+    <div class="answer-note">$\dfrac{2x-3}{x+1} - 1 \geq 0 \Rightarrow \dfrac{x-4}{x+1} \geq 0$. Sign chart with critical values $x=-1$ (excluded) and $x=4$ (included): expression is $\geq 0$ when both factors share the same sign.</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">10</div>
+    <div class="q-text">State whether each equation is true or false for every input where both sides are defined.</div>
+    <div class="q-status">0/6 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q10a" data-qtxt="(p+q)^2 = p^2 + q^2">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$(p+q)^2 = p^2 + q^2$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\textbf{False}$</div>
+    <div class="answer-note">$(p+q)^2 = p^2 + 2pq + q^2 \neq p^2+q^2$ in general (e.g. $p=q=1$: LHS $= 4$, RHS $= 2$)</div>
+  </div>
+</div>
+<div class="part" data-id="q10b" data-qtxt="sqrt(ab) = sqrt(a) cdot sqrt(b)">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$\sqrt{ab} = \sqrt{a} \cdot \sqrt{b} \quad (a,\, b \geq 0)$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\textbf{True}$</div>
+    <div class="answer-note">$\sqrt{ab} = (ab)^{1/2} = a^{1/2}b^{1/2} = \sqrt{a}\,\sqrt{b}$</div>
+  </div>
+</div>
+<div class="part" data-id="q10c" data-qtxt="\sqrt{a^2+b^2} = a + b">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$\sqrt{a^2+b^2} = a + b$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\textbf{False}$</div>
+    <div class="answer-note">Try $a=b=1$: $\sqrt{2} \neq 2$</div>
+  </div>
+</div>
+<div class="part" data-id="q10d" data-qtxt="\dfrac{1+TC}{C} = 1 + T">
+  <div class="part-q">
+    <div class="part-label">(d)</div>
+    <div class="part-math">$\dfrac{1+TC}{C} = 1 + T$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\textbf{False}$</div>
+    <div class="answer-note">$\dfrac{1+TC}{C} = \dfrac{1}{C} + T \neq 1 + T$</div>
+  </div>
+</div>
+<div class="part" data-id="q10e" data-qtxt="\dfrac{1}{x+y} = \dfrac{1}{x} + \dfrac{1}{y}">
+  <div class="part-q">
+    <div class="part-label">(e)</div>
+    <div class="part-math">$\dfrac{1}{x+y} = \dfrac{1}{x} + \dfrac{1}{y}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\textbf{False}$</div>
+    <div class="answer-note">Try $x=y=1$: LHS $= \frac{1}{2}$, RHS $= 2$</div>
+  </div>
+</div>
+<div class="part" data-id="q10f" data-qtxt="\dfrac{1/x}{a/x - b/x} = \dfrac{1}{a-b}">
+  <div class="part-q">
+    <div class="part-label">(f)</div>
+    <div class="part-math">$\dfrac{1/x}{a/x - b/x} = \dfrac{1}{a-b}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\textbf{True}$</div>
+    <div class="answer-note">$\dfrac{1/x}{(a-b)/x} = \dfrac{1}{a-b}$ (for $x \neq 0, a \neq b$)</div>
+  </div>
+</div></div>
+</div>
+
+  <!-- Study Plan -->
+  <div class="study-plan">
+    <div class="study-plan-header">
+      <h2>My Study Plan</h2>
+      <p>Updates automatically as you rate each part. Use this to guide your review.</p>
+    </div>
+    <div class="study-plan-body">
+      <div class="plan-section" id="plan-need"></div>
+      <div class="plan-section" id="plan-almost"></div>
+      <div class="plan-section" id="plan-got"></div>
+    </div>
+  </div>
+
+
+  <div class="vid-card">
+  <div class="vid-card-header">
+    <div>
+      <h2>&#x1F4FA;&nbsp; Video Review &mdash; Algebra Essentials Review</h2>
+      <p>Watch this to review topics you marked &ldquo;Need Practice&rdquo; &mdash; your study plan above shows exactly where to focus.</p>
+    </div>
+  </div>
+  <a class="vid-thumb-wrap" href="https://www.youtube.com/watch?v=PlHnR1RB008" target="_blank" rel="noopener"
+     aria-label="Watch Algebra Essentials Review on YouTube">
+    <img src="https://img.youtube.com/vi/PlHnR1RB008/hqdefault.jpg" alt="Thumbnail for Algebra Essentials Review" loading="lazy">
+    <div class="vid-play-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+  </a>
+  <div class="vid-card-footer">
+    <p>&#x1F517; Opens on YouTube &mdash; no account required to watch.</p>
+    <a class="vid-yt-link" href="https://www.youtube.com/watch?v=PlHnR1RB008" target="_blank" rel="noopener">
+      &#x25B6; Watch on YouTube
+    </a>
+  </div>
+</div>
+
+
+<!-- ── Supplemental Practice ── -->
+<div style="margin-top:48px;margin-bottom:8px;">
+  <div style="background:linear-gradient(135deg,#E07B39,#C05A20);color:white;
+              border-radius:10px 10px 0 0;padding:18px 22px;">
+    <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+                opacity:.8;margin-bottom:4px;">After You Finish the Diagnostic</div>
+    <div style="font-size:20px;font-weight:700;">
+      &#x1F4DA;&nbsp; Supplemental Practice &mdash; Algebra
+    </div>
+    <div style="font-size:13px;opacity:.85;margin-top:4px;">
+      10 additional problems to deepen your skills &mdash;
+      each rated independently so they feed into your study plan.
+    </div>
+  </div>
+  <div style="background:#FFF8F4;border:1px solid #E07B39;border-top:none;
+              border-radius:0 0 10px 10px;padding:16px 22px 6px;">
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S1</div>
+    <div class="q-text">Exponents</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s1a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Evaluate: $\left(\dfrac{1}{27}\right)^{-2/3}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$9$</div>
+    <div class="answer-note">$\left(\dfrac{1}{27}\right)^{-2/3} = 27^{2/3} = \left(\sqrt[3]{27}\right)^2 = 3^2 = 9$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S2</div>
+    <div class="q-text">Simplification</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s2a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Simplify (no negative exponents): $\left(\dfrac{x^{-3}y^2}{z^{-1}}\right)^{-2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{x^6}{y^4 z^2}$</div>
+    <div class="answer-note">Flip exponents: inside becomes $\dfrac{z^{-1}}{x^{-3}y^2}$; raise to $-2$: $\dfrac{x^6}{y^4 z^2}$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S3</div>
+    <div class="q-text">Expansion</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s3a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Expand and simplify: $(2x - 3)(x^2 + 4x - 5)$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$2x^3 + 5x^2 - 22x + 15$</div>
+    <div class="answer-note">$2x(x^2+4x-5) - 3(x^2+4x-5) = 2x^3+8x^2-10x - 3x^2-12x+15$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S4</div>
+    <div class="q-text">Factoring</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s4a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Factor completely: $x^3 - 8y^3$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(x - 2y)(x^2 + 2xy + 4y^2)$</div>
+    <div class="answer-note">Difference of cubes: $a^3 - b^3 = (a-b)(a^2+ab+b^2)$ with $a=x$, $b=2y$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S5</div>
+    <div class="q-text">Rational Expressions</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s5a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Simplify: $\dfrac{x^2 - 9}{x^2 + 5x + 6} \div \dfrac{x - 3}{x + 2}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$1$</div>
+    <div class="answer-note">Factor: $\dfrac{(x+3)(x-3)}{(x+2)(x+3)} \cdot \dfrac{x+2}{x-3} = 1$ (all factors cancel; $x \neq -3, -2, 3$)</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S6</div>
+    <div class="q-text">Rationalizing</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s6a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Rationalize the numerator: $\dfrac{\sqrt{x+4} - 2}{x}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{1}{\sqrt{x+4} + 2}$</div>
+    <div class="answer-note">Multiply by $\dfrac{\sqrt{x+4}+2}{\sqrt{x+4}+2}$: numerator $= (x+4)-4 = x$, so the $x$'s cancel &nbsp;($x \geq -4,\; x \neq 0$)</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S7</div>
+    <div class="q-text">Completing the Square</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s7a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Rewrite $f(x) = x^2 - 6x + 11$ in vertex form.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$f(x) = (x - 3)^2 + 2$</div>
+    <div class="answer-note">$x^2-6x+9-9+11 = (x-3)^2 + 2$; vertex at $(3,\,2)$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S8</div>
+    <div class="q-text">Equation Solving</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s8a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Solve: $x^4 - 5x^2 + 4 = 0$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = \pm 1,\; \pm 2$</div>
+    <div class="answer-note">Let $u = x^2$: $(u-1)(u-4)=0 \Rightarrow u=1$ or $u=4 \Rightarrow x = \pm1, \pm2$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S9</div>
+    <div class="q-text">Inequalities</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s9a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Solve in interval notation: $\dfrac{x-1}{x+3} \geq 0$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$(-\infty,\,-3)\cup[1,\,\infty)$</div>
+    <div class="answer-note">Critical values: $x=-3$ (excluded, denominator $= 0$) and $x=1$ (included, expression $= 0$). Sign chart: expression is <em>positive</em> on $(-\infty,-3)$ and $(1,\infty)$, and <em>zero</em> at $x=1$.</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S10</div>
+    <div class="q-text">True or False</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="s10a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Is $\sqrt{x^2 + 9} = x + 3$ true for all real $x$?</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\textbf{False}$</div>
+    <div class="answer-note">Try $x=4$: LHS $= \sqrt{25} = 5$, RHS $= 7$. In general $\sqrt{x^2+9} \neq x+3$ — the square root does not distribute over addition.</div>
+  </div>
+</div></div>
+</div>
+  </div>
+</div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<script>
+// ── Render math ──
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '\$\$', right: '\$\$', display: true},
+    {left: '\$', right: '\$', display: false}
+  ]
+});
+// ── Toggle question open/close ──
+document.querySelectorAll('.q-header').forEach(h => {
+  h.addEventListener('click', () => {
+    h.closest('.q-section').classList.toggle('open');
+  });
+});
+
+// ── Show/hide answer ──
+document.querySelectorAll('.btn-show').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const part = btn.closest('.part');
+    const ans  = part.querySelector('.part-answer');
+    const vis  = ans.classList.toggle('visible');
+    btn.textContent = vis ? 'Hide Answer' : 'Show Answer';
+    btn.classList.toggle('shown', vis);
+  });
+});
+
+// ── Rating ──
+let ratings = {};  // key: partId → 'got'|'almost'|'need'
+document.querySelectorAll('.btn-rate').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const part   = btn.closest('.part');
+    const partId = part.dataset.id;
+    const rating = btn.dataset.rating;
+    // deselect all in group
+    part.querySelectorAll('.btn-rate').forEach(b => b.classList.remove('active'));
+    // select this one (toggle off if same)
+    if (ratings[partId] === rating) {
+      delete ratings[partId];
+    } else {
+      btn.classList.add('active');
+      ratings[partId] = rating;
+    }
+    updateTally();
+    updatePlan();
+    updateQStatus(part);
+  });
+});
+
+function updateTally() {
+  const vals = Object.values(ratings);
+  const got    = vals.filter(v=>v==='got').length;
+  const almost = vals.filter(v=>v==='almost').length;
+  const need   = vals.filter(v=>v==='need').length;
+  const total  = document.querySelectorAll('.part').length;
+  const rated  = vals.length;
+  document.getElementById('t-got').textContent    = got;
+  document.getElementById('t-almost').textContent = almost;
+  document.getElementById('t-need').textContent   = need;
+  document.getElementById('prog-fill').style.width = (rated/total*100)+'%';
+  document.getElementById('prog-label').textContent = `${rated} of ${total} parts rated`;
+}
+
+function updateQStatus(part) {
+  const section = part.closest('.q-section');
+  const parts   = section.querySelectorAll('.part');
+  const rated   = [...parts].filter(p => ratings[p.dataset.id]).length;
+  section.querySelector('.q-status').textContent =
+    rated === parts.length ? '✓ Complete' : `${rated}/${parts.length} rated`;
+}
+
+function updatePlan() {
+  const sections = ['got','almost','need'];
+  const labels   = {'got':'✓ Got It','almost':'≈ Almost','need':'✗ Need Practice'};
+  sections.forEach(r => {
+    const div   = document.getElementById('plan-'+r);
+    const items = Object.entries(ratings).filter(([,v])=>v===r);
+    div.innerHTML = `<div class="plan-section-title">${labels[r]} (${items.length})</div>`;
+    if (items.length === 0) {
+      div.innerHTML += `<p class="plan-empty">None yet.</p>`;
+    } else {
+      items.forEach(([id]) => {
+        const el = document.querySelector(`.part[data-id="${id}"]`);
+        const label = el.querySelector('.part-label').textContent;
+        const qnum  = el.closest('.q-section').querySelector('.q-num').textContent;
+        div.innerHTML += `<div class="plan-item"><span>Q${qnum}${label}</span> — ${el.dataset.qtxt}</div>`;
+      });
+    }
+  });
+}
+
+// init tally
+updateTally();
+updatePlan();
+</script>
+
+</body>
+</html>

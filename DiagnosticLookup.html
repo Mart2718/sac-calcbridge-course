@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where to Find Help · CalcBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:   #0D5C73;
+  --teal2:  #1B7A96;
+  --teal3:  #0a3f52;
+  --orange: #D4622A;
+  --gold:   #E8A020;
+  --yellow: #FFD166;
+  --bg:     #F4F7F9;
+  --text:   #1A2A33;
+  --muted:  #5A7080;
+  --white:  #ffffff;
+  --green:  #1a6b4a;
+  --amber:  #92400e;
+  --red:    #b91c1c;
+  --border: #D0DDE5;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; min-height: 100vh; font-size: 16px; }
+
+/* ── HEADER ── */
+.header {
+  background: var(--teal3); color: white;
+  padding: 28px 24px 22px; text-align: center;
+}
+.header-eyebrow {
+  font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--yellow); opacity: .85; margin-bottom: 8px;
+}
+.header-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(24px, 5vw, 32px); color: white; margin-bottom: 8px;
+}
+.header-sub {
+  font-size: clamp(14px, 2.5vw, 16px); color: rgba(255,255,255,.7);
+  font-weight: 300; max-width: 480px; margin: 0 auto; line-height: 1.6;
+}
+
+/* ── TABS ── */
+.tab-row {
+  display: flex; background: var(--teal3);
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.tab-btn {
+  flex: 1; padding: 14px 6px; border: none;
+  background: transparent; color: rgba(255,255,255,.5);
+  font-family: 'DM Sans', sans-serif; font-size: clamp(13px, 2vw, 15px);
+  font-weight: 700; cursor: pointer; letter-spacing: .5px;
+  border-bottom: 4px solid transparent;
+  transition: all .15s; line-height: 1.3;
+}
+.tab-btn:hover { color: rgba(255,255,255,.85); }
+.tab-btn.active {
+  color: white;
+  border-bottom-color: var(--orange);
+  background: rgba(255,255,255,.08);
+}
+.tab-sub { font-weight: 400; font-size: clamp(11px, 1.8vw, 13px); opacity: .75; display: block; margin-top: 2px; }
+
+/* ── MAIN ── */
+.main { padding: 20px 18px; max-width: 680px; margin: 0 auto; }
+
+/* ── PROBLEM GRID ── */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 10px; margin-bottom: 20px;
+}
+.prob-btn {
+  background: white; border: 2px solid var(--border);
+  border-radius: 12px; padding: 14px 6px;
+  text-align: center; cursor: pointer;
+  transition: all .15s; font-family: 'DM Sans', sans-serif;
+}
+.prob-btn:hover { border-color: var(--teal2); background: #ebf4f8; }
+.prob-btn.active { border-color: var(--teal2); background: var(--teal3); color: white; }
+.prob-num {
+  font-size: clamp(20px, 3.5vw, 24px); font-weight: 700;
+  color: var(--teal3); display: block; line-height: 1;
+}
+.prob-btn.active .prob-num { color: white; }
+.prob-skill {
+  font-size: clamp(11px, 1.8vw, 12px); color: var(--muted);
+  margin-top: 4px; line-height: 1.3;
+}
+.prob-btn.active .prob-skill { color: rgba(255,255,255,.75); }
+
+/* ── RESULT CARD ── */
+.result-card {
+  background: white; border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden; display: none;
+}
+.result-card.show { display: block; }
+.result-header {
+  background: var(--teal3); padding: 20px 22px 18px;
+}
+.result-tag {
+  font-size: 12px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--yellow); opacity: .85;
+  margin-bottom: 6px;
+}
+.result-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(20px, 3.5vw, 26px); color: white; line-height: 1.25;
+}
+.result-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+
+.resource-row {
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.resource-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0; margin-top: 2px;
+}
+.icon-ff  { background: #e0f0f8; }
+.icon-cbc { background: #e8f5ef; }
+.icon-app { background: #fff3e0; }
+.icon-gap { background: #fef2f2; }
+.resource-content { flex: 1; }
+.resource-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 4px;
+}
+.resource-text { font-size: clamp(14px, 2.2vw, 16px); color: var(--text); line-height: 1.6; }
+.resource-text strong { color: var(--teal3); }
+.resource-text.gap { color: var(--red); }
+.resource-text.partial { color: var(--amber); }
+.resource-link {
+  display: inline-block; margin-top: 10px;
+  background: var(--orange); color: white;
+  font-size: clamp(13px, 2vw, 15px); font-weight: 700; padding: 8px 18px;
+  border-radius: 8px; text-decoration: none;
+}
+.resource-link:hover { background: #b8501f; }
+
+/* ── COVERAGE PILL ── */
+.cov-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 13px; border-radius: 14px;
+  font-size: clamp(12px, 2vw, 14px); font-weight: 700; margin-top: 2px;
+}
+.cov-full { background: #e8f5ef; color: var(--green); }
+.cov-part { background: #fffbeb; color: var(--amber); }
+.cov-gap  { background: #fef2f2; color: var(--red); }
+
+/* ── INTEGRAL BADGE ── */
+.int-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--teal3); color: var(--yellow);
+  font-size: clamp(12px, 2vw, 14px); font-weight: 700; padding: 5px 13px;
+  border-radius: 14px;
+}
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ── PLACEHOLDER ── */
+.placeholder {
+  text-align: center; padding: 40px 20px;
+  color: var(--muted); font-size: clamp(15px, 2.5vw, 17px);
+}
+.placeholder-icon { font-size: 40px; margin-bottom: 12px; }
+.placeholder-text { font-style: italic; line-height: 1.6; }
+
+@media (max-width: 520px) {
+  .problem-grid { grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 8px; }
+  .main { padding: 16px 14px; }
+  .result-header { padding: 16px 18px 14px; }
+  .result-body { padding: 16px 18px; gap: 14px; }
+}
+
+/* ── AI PROMPTS SECTION ── */
+.ai-section {
+  border: 2px solid #c7e0ea;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.ai-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  background: #e8f4f9; border: none; padding: 14px 18px;
+  font-family: 'DM Sans', sans-serif; font-size: clamp(14px, 2.2vw, 15px);
+  font-weight: 700; color: var(--teal3); cursor: pointer; text-align: left;
+  transition: background .15s;
+}
+.ai-toggle:hover { background: #d5eaf4; }
+.ai-toggle-icon { font-size: 18px; transition: transform .2s; flex-shrink: 0; }
+.ai-toggle.open .ai-toggle-icon { transform: rotate(180deg); }
+.ai-body { padding: 0 18px 18px; display: none; }
+.ai-body.open { display: block; }
+.ai-intro {
+  font-size: clamp(13px, 2vw, 14px); color: var(--muted);
+  line-height: 1.55; padding: 12px 0 14px; border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+.prompt-block { margin-bottom: 12px; }
+.prompt-type {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 8px; margin-bottom: 7px;
+}
+.type-explain { background: #e0f0f8; color: #0a3f52; }
+.type-explore { background: #e8f5ef; color: #1a6b4a; }
+.type-practice { background: #fff3e0; color: #92400e; }
+.prompt-row {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: #f8fafc; border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+}
+.prompt-text {
+  flex: 1; font-size: clamp(13px, 2vw, 14px); color: var(--text);
+  line-height: 1.6; font-style: italic;
+}
+.copy-btn {
+  flex-shrink: 0; background: var(--teal3); color: white;
+  border: none; border-radius: 7px; padding: 5px 11px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  cursor: pointer; white-space: nowrap; transition: background .15s; margin-top: 2px;
+}
+.copy-btn:hover { background: var(--teal2); }
+.copy-btn.copied { background: var(--green); }
+.followup-card {
+  background: var(--teal3); border-radius: 10px; padding: 14px 16px; margin-top: 14px;
+}
+.followup-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--yellow); margin-bottom: 8px;
+}
+.followup-list {
+  list-style: none; display: flex; flex-direction: column; gap: 6px;
+}
+.followup-list li {
+  font-size: clamp(13px, 2vw, 14px); color: rgba(255,255,255,.85); line-height: 1.4;
+}
+.followup-list li::before { content: '→ '; color: var(--yellow); font-weight: 700; }
+
+/* ── PRACTICE BY SUB-TYPE SECTION ── */
+.practice-section {
+  border: 2px solid #d8e8d4;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.practice-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  background: #eaf4e8; border: none; padding: 14px 18px;
+  font-family: 'DM Sans', sans-serif; font-size: clamp(14px, 2.2vw, 15px);
+  font-weight: 700; color: #1a4a28; cursor: pointer; text-align: left;
+  transition: background .15s;
+}
+.practice-toggle:hover { background: #daefd7; }
+.practice-toggle-icon { font-size: 18px; transition: transform .2s; flex-shrink: 0; }
+.practice-toggle.open .practice-toggle-icon { transform: rotate(180deg); }
+.practice-body { padding: 0 16px 16px; display: none; }
+.practice-body.open { display: block; }
+.practice-intro {
+  font-size: clamp(13px, 2vw, 14px); color: var(--muted);
+  padding: 12px 0 14px; border-bottom: 1px solid var(--border);
+  margin-bottom: 14px; line-height: 1.55;
+}
+.parts-list { display: flex; flex-direction: column; gap: 10px; }
+.part-card {
+  border: 1px solid var(--border); border-radius: 10px;
+  background: white; overflow: hidden;
+}
+.part-header {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  background: #f8fafc; border-bottom: 1px solid var(--border);
+}
+.part-code {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; background: var(--teal3); color: var(--yellow);
+  padding: 3px 9px; border-radius: 6px; white-space: nowrap; flex-shrink: 0;
+}
+.part-label {
+  font-size: clamp(13px, 2vw, 14px); font-weight: 600; color: var(--text); flex: 1;
+}
+.part-body { padding: 10px 14px; display: flex; flex-direction: column; gap: 8px; }
+.part-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.part-btn {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  padding: 5px 12px; border-radius: 7px; cursor: pointer; border: none;
+  transition: all .15s; white-space: nowrap;
+}
+.btn-problem { background: var(--teal3); color: white; }
+.btn-problem:hover { background: var(--teal2); }
+.btn-problem.shown { background: var(--muted); }
+.btn-answer { background: #e8f5ef; color: var(--green); border: 1px solid #c8e8d8; }
+.btn-answer:hover { background: #d5f0e5; }
+.btn-answer.shown { background: var(--green); color: white; border-color: var(--green); }
+.btn-ai {
+  background: var(--orange); color: white;
+  margin-left: auto;
+}
+.btn-ai:hover { background: #b8501f; }
+.btn-ai.copied { background: var(--green); }
+.part-problem {
+  font-size: clamp(13px, 2vw, 14px); color: var(--text); line-height: 1.6;
+  background: #f0f7fc; border-left: 3px solid var(--teal2);
+  padding: 10px 12px; border-radius: 0 8px 8px 0;
+  display: none;
+}
+.part-problem.show { display: block; }
+.part-answer {
+  font-size: clamp(13px, 2vw, 14px); color: var(--green); line-height: 1.6;
+  background: #e8f5ef; border-left: 3px solid var(--green);
+  padding: 10px 12px; border-radius: 0 8px 8px 0;
+  display: none;
+}
+.part-answer.show { display: block; }
+.part-hint {
+  font-size: 13px; color: var(--muted); font-style: italic;
+  margin-top: 5px; padding-top: 5px; border-top: 1px solid #c8e8d8;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">CalcBridge Math Academy</div>
+  <h1 class="header-title">Where Can I Find Help?</h1>
+  <p class="header-sub">Pick the diagnostic test and the problem you want to review — we'll show you exactly where to go in the course.</p>
+</div>
+
+<div class="tab-row">
+  <button class="tab-btn active" onclick="selectTest('A',this)">Test A<br><span class="tab-sub">Algebra</span></button>
+  <button class="tab-btn" onclick="selectTest('B',this)">Test B<br><span class="tab-sub">Analytic Geo.</span></button>
+  <button class="tab-btn" onclick="selectTest('C',this)">Test C<br><span class="tab-sub">Functions</span></button>
+  <button class="tab-btn" onclick="selectTest('D',this)">Test D<br><span class="tab-sub">Trigonometry</span></button>
+</div>
+
+<div class="main">
+  <div class="problem-grid" id="problemGrid"></div>
+  <div class="result-card" id="resultCard">
+    <div class="result-header">
+      <div class="result-tag" id="rTag"></div>
+      <div class="result-title" id="rTitle"></div>
+    </div>
+    <div class="result-body" id="rBody"></div>
+  </div>
+  <div class="placeholder" id="placeholder">
+    <div class="placeholder-icon">👆</div>
+    <div class="placeholder-text">Select a problem number above to see where to find help.</div>
+    <div style="margin-top:20px;padding:14px 18px;background:#e8f4f8;border-radius:8px;border:1px solid #b3d4e0;font-size:13px;text-align:left;">
+      <strong style="color:#0a3f52;">🤖 AI Practice Partner</strong><br>
+      Each result card includes <em>AI Practice ↗</em> buttons that copy a prompt to your clipboard and open the Play Lab AI tool — free for SAC students.<br>
+      <a href="https://www.playlab.ai/project/cmwn2o61f0n6vjh01gaqagr1o" target="_blank" rel="noopener"
+         style="display:inline-block;margin-top:8px;background:#0a3f52;color:white;padding:6px 14px;border-radius:5px;text-decoration:none;font-size:12px;font-weight:700;">
+        Open Play Lab AI ↗
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Play Lab URL — paste the link here when ready ──
+const PLAY_LAB_URL = 'https://www.playlab.ai/project/cmwn2o61f0n6vjh01gaqagr1o';
+
+const DATA = {
+  A: [
+    {
+      skill: 'Exponents',
+      short: 'Evaluate',
+      cov: 'full',
+      ff: '<strong>Unit G — Polynomials</strong><br>G.2 Properties of Exponents<br>G.2b Negative Exponent Definition',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A1a', label:'Negative base, even exponent',
+          q:'Evaluate (−2)⁶',
+          a:'64 — the even exponent makes the result positive',
+          hint:'Compare (−2)⁶ with −2⁶. Only one of them equals 64.',
+          ai:'CalcBridge Practice Partner: I need practice on A1a — evaluating a negative base raised to an even exponent, like (−3)⁴. Please confirm the skill and show me the menu.' },
+        { code:'A1b', label:'Negative sign outside the exponent',
+          q:'Evaluate −5²',
+          a:'−25 — the exponent applies to 5 only: −(5²) = −25',
+          hint:'Contrast with (−5)² = +25. The placement of parentheses changes everything.',
+          ai:'CalcBridge Practice Partner: I need practice on A1b — expressions like −3⁴ where the negative sign is outside the exponent. Please confirm the skill and show me the menu.' },
+        { code:'A1c', label:'Negative exponent = reciprocal',
+          q:'Evaluate 2⁻⁵',
+          a:'1/32 — negative exponent means reciprocal: 2⁻⁵ = 1/2⁵ = 1/32',
+          hint:'Flip the base to the denominator and make the exponent positive.',
+          ai:'CalcBridge Practice Partner: I need practice on A1c — negative exponents (like 3⁻⁴ = 1/81). Please confirm the skill and show me the menu.' },
+        { code:'A1d', label:'Quotient rule for exponents',
+          q:'Evaluate 3¹⁰ ÷ 3⁸',
+          a:'9 — subtract exponents: 3^(10−8) = 3² = 9',
+          hint:'When dividing powers with the same base, subtract the exponents.',
+          ai:'CalcBridge Practice Partner: I need practice on A1d — the quotient rule for exponents (like 5²³/5²¹ = 25). Please confirm the skill and show me the menu.' },
+        { code:'A1e', label:'Fraction raised to a negative exponent',
+          q:'Evaluate (3/5)⁻²',
+          a:'25/9 — flip the fraction then square: (5/3)² = 25/9',
+          hint:'A negative exponent on a fraction: flip the fraction, then apply the positive exponent.',
+          ai:'CalcBridge Practice Partner: I need practice on A1e — a fraction raised to a negative exponent, like (2/3)⁻². Please confirm the skill and show me the menu.' },
+        { code:'A1f', label:'Rational (fractional) exponent',
+          q:'Evaluate 27^(−2/3)',
+          a:'1/9 — the denominator is the root index: ∛27 = 3, so 27^(2/3) = 9, so 27^(−2/3) = 1/9',
+          hint:'x^(m/n) = (nth root of x)^m. Handle the negative exponent last.',
+          ai:'CalcBridge Practice Partner: I need practice on A1f — rational exponents like 16^(−3/4). Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Simplify expressions',
+      short: 'Simplify',
+      cov: 'full',
+      ff: '<strong>Unit G — Polynomials</strong><br>G.2a Simplify with Exponent Properties<br>G.2b Use the Definition of a Negative Exponent',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A2a', label:'Simplify radical expressions',
+          q:'Simplify √75 − √12',
+          a:'3√3 — factor each: √75 = 5√3, √12 = 2√3, so 5√3 − 2√3 = 3√3',
+          hint:'Look for perfect-square factors inside each radical, then combine like radical terms.',
+          ai:'CalcBridge Practice Partner: I need practice on A2a — simplifying radical expressions like √200 − √32. Please confirm the skill and show me the menu.' },
+        { code:'A2b', label:'Product of powers with parentheses',
+          q:'Simplify (2x²y)(3xy²)²',
+          a:'18x⁴y⁵ — expand (3xy²)² = 9x²y⁴ first, then multiply: 2x²y · 9x²y⁴ = 18x⁴y⁵',
+          hint:'Square the coefficient AND each variable inside the parentheses before multiplying.',
+          ai:'CalcBridge Practice Partner: I need practice on A2b — simplifying products of powers with parentheses like (3a³b³)(4ab²)². Please confirm the skill and show me the menu.' },
+        { code:'A2c', label:'Complex fraction with rational exponents',
+          q:'Simplify (2a^(1/2) · b² / (a^(3/2) · b^(−1)))²',
+          a:'4b⁶/a² — simplify inside first: a^(1/2−3/2) · b^(2+1) = a⁻¹b³, then square everything: 4a⁻²b⁶. (Requires a > 0 and b ≠ 0, as the original expression demands.)',
+          hint:'Subtract exponents for division, add for multiplication. Handle the outer power last.',
+          ai:'CalcBridge Practice Partner: I need practice on A2c — simplifying complex expressions with rational exponents raised to a power. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Expand and simplify',
+      short: 'Expand',
+      cov: 'full',
+      ff: '<strong>Unit G — Polynomials</strong><br>G.3c Multiply Binomials (FOIL)<br>G.3d Multiply a Polynomial by a Polynomial<br>G.3e Special Products',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A3a', label:'Distributive property',
+          q:'Expand and simplify 5(2x−3) − 2(x+4)',
+          a:'8x − 23',
+          hint:'Distribute each coefficient carefully, paying attention to sign changes with the minus.',
+          ai:'CalcBridge Practice Partner: I need practice on A3a — expanding with the distributive property and combining like terms. Please confirm the skill and show me the menu.' },
+        { code:'A3b', label:'Multiply two binomials (FOIL)',
+          q:'Expand (2x−3)(3x+4)',
+          a:'6x² − x − 12',
+          hint:'Multiply First, Outer, Inner, Last — then combine the two middle terms.',
+          ai:'CalcBridge Practice Partner: I need practice on A3b — multiplying two binomials (FOIL). Please confirm the skill and show me the menu.' },
+        { code:'A3c', label:'Difference of squares with radicals',
+          q:'Expand (√x + 3)(√x − 3)',
+          a:'x − 9 (for x ≥ 0) — this is the difference of squares pattern: (A+B)(A−B) = A² − B²',
+          hint:'Recognize this as the difference of squares pattern to skip the middle terms.',
+          ai:'CalcBridge Practice Partner: I need practice on A3c — the difference of squares pattern with radical expressions. Please confirm the skill and show me the menu.' },
+        { code:'A3d', label:'Perfect square binomial',
+          q:'Expand (3x−4)²',
+          a:'9x² − 24x + 16 — use (A−B)² = A² − 2AB + B²',
+          hint:'The middle term is 2 × (3x) × (−4) = −24x. The sign of B matters: (A−B)² = A² − 2AB + B². Don\'t drop the minus.',
+          ai:'CalcBridge Practice Partner: I need practice on A3d — squaring a binomial using the perfect square pattern. Please confirm the skill and show me the menu.' },
+        { code:'A3e', label:'Cube of a binomial',
+          q:'Expand (x−1)³',
+          a:'x³ − 3x² + 3x − 1 — use (A−B)³ = A³ − 3A²B + 3AB² − B³',
+          hint:'Write out (x−1)(x−1)(x−1) and multiply step by step, or apply the cube formula.',
+          ai:'CalcBridge Practice Partner: I need practice on A3e — expanding a binomial cubed. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Factor expressions',
+      short: 'Factor',
+      cov: 'full',
+      ff: '<strong>Unit H — Factoring</strong><br>H.1 GCF and Factoring by Grouping<br>H.2 Factor Trinomials<br>H.3 Factor Special Products<br>H.4 General Factoring Strategy',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A4a', label:'Difference of squares',
+          q:'Factor 9x² − 16',
+          a:'(3x+4)(3x−4)',
+          hint:'Pattern: A² − B² = (A+B)(A−B). Identify what A and B are here.',
+          ai:'CalcBridge Practice Partner: I need practice on A4a — factoring a difference of two squares. Please confirm the skill and show me the menu.' },
+        { code:'A4b', label:'Trinomial with leading coefficient ≠ 1',
+          q:'Factor 3x² − x − 10',
+          a:'(3x+5)(x−2)',
+          hint:'Find two numbers that multiply to (3)(−10) = −30 and add to −1. Then factor by grouping.',
+          ai:'CalcBridge Practice Partner: I need practice on A4b — factoring a trinomial with a leading coefficient other than 1. Please confirm the skill and show me the menu.' },
+        { code:'A4c', label:'Factor by grouping',
+          q:'Factor x³ − 2x² − 9x + 18',
+          a:'(x−2)(x²−9) = (x−2)(x+3)(x−3)',
+          hint:'Group the first two and last two terms. Factor out what\'s common from each group.',
+          ai:'CalcBridge Practice Partner: I need practice on A4c — factoring a polynomial by grouping. Please confirm the skill and show me the menu.' },
+        { code:'A4d', label:'Sum of cubes',
+          q:'Factor x⁴ + 8x',
+          a:'x(x+2)(x²−2x+4) — factor out x first, then apply A³+B³ = (A+B)(A²−AB+B²)',
+          hint:'Always pull out the GCF first, then look for the sum of cubes pattern.',
+          ai:'CalcBridge Practice Partner: I need practice on A4d — factoring a sum of cubes. Please confirm the skill and show me the menu.' },
+        { code:'A4e', label:'Factoring with fractional exponents',
+          q:'Factor 2x^(5/2) − 6x^(3/2) + 4x^(1/2)',
+          a:'2x^(1/2)(x²−3x+2) = 2x^(1/2)(x−1)(x−2)',
+          hint:'Factor out 2x^(1/2) (the GCF). The remaining factor is x²−3x+2. Then factor that trinomial as (x−1)(x−2).',
+          ai:'CalcBridge Practice Partner: I need practice on A4e — factoring expressions with fractional exponents. Please confirm the skill and show me the menu.' },
+        { code:'A4f', label:'GCF then difference of squares',
+          q:'Factor 3a³b − 12ab',
+          a:'3ab(a−2)(a+2)',
+          hint:'Always factor out the GCF first, then check what remains for special patterns.',
+          ai:'CalcBridge Practice Partner: I need practice on A4f — factoring by pulling out a GCF and then applying a special product. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Rational expressions',
+      short: 'Rational Exp.',
+      cov: 'full',
+      ff: '<strong>Unit I — Rational Expressions</strong><br>I.1 Multiply and Divide<br>I.2 Add and Subtract<br>I.3 Simplify Complex Fractions',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A5a', label:'Simplify by factoring',
+          q:'Simplify (x²−x−6) / (x²+x−12)',
+          a:'(x+2)/(x+4) for x ≠ 3 and x ≠ −4 — factor: (x−3)(x+2) over (x+4)(x−3), cancel the (x−3)',
+          hint:'Factor both top and bottom completely, then cancel common factors.',
+          ai:'CalcBridge Practice Partner: I need practice on A5a — simplifying a rational expression by factoring. Please confirm the skill and show me the menu.' },
+        { code:'A5b', label:'Multiply rational expressions',
+          q:'Simplify (x²−9)/(x²−4) · (x+2)/(x−3)',
+          a:'(x+3)/(x−2) — factor all, then cancel (x−3) and (x+2)',
+          hint:'Factor everything before you multiply. Cancel any matching factors across numerators and denominators.',
+          ai:'CalcBridge Practice Partner: I need practice on A5b — multiplying rational expressions by factoring and canceling. Please confirm the skill and show me the menu.' },
+        { code:'A5c', label:'Add rational expressions with different denominators',
+          q:'Simplify x/(x²−9) + 1/(x−3)',
+          a:'(2x+3)/((x−3)(x+3)) — LCD = (x−3)(x+3), rewrite 1/(x−3) as (x+3)/((x−3)(x+3))',
+          hint:'Find the LCD by factoring each denominator. Rewrite each fraction with the LCD, then add numerators.',
+          ai:'CalcBridge Practice Partner: I need practice on A5c — adding rational expressions with different denominators. Please confirm the skill and show me the menu.' },
+        { code:'A5d', label:'Simplify a complex fraction',
+          q:'Simplify (1/a + 1/b) / (1/a − 1/b)',
+          a:'(a+b)/(b−a) for a ≠ 0, b ≠ 0, a ≠ b — multiply numerator and denominator by ab to clear fractions',
+          hint:'Multiply every term top and bottom by the LCD of all the smaller fractions.',
+          ai:'CalcBridge Practice Partner: I need practice on A5d — simplifying a complex fraction (a fraction within a fraction). Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Rationalize',
+      short: 'Rationalize',
+      cov: 'full',
+      ff: '<strong>Unit J — Roots and Radicals</strong><br>J.5b Rationalize a One-Term Denominator<br>J.5c Rationalize a Two-Term Denominator',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A6a', label:'Rationalize a two-term denominator',
+          q:'Rationalize: √6 / (√3 − 1)',
+          a:'(3√2 + √6)/2 — multiply by (√3+1)/(√3+1): numerator √18+√6, denominator 3−1 = 2',
+          hint:'The conjugate of (√3−1) is (√3+1). Multiplying by it eliminates the radical in the denominator.',
+          ai:'CalcBridge Practice Partner: I need practice on A6a — rationalizing a denominator with two terms (using the conjugate). Please confirm the skill and show me the menu.' },
+        { code:'A6b', label:'Rationalize a limit-type expression',
+          q:'Rationalize and simplify (√(9+h) − 3) / h',
+          a:'1 / (√(9+h) + 3) for h ≠ 0, h > −9 — multiply by conjugate: numerator becomes (9+h)−9 = h, cancel h (valid only when h ≠ 0)',
+          hint:'Multiply by the conjugate of the numerator to get h on top, then cancel with the h in the denominator. This is a core calculus technique.',
+          ai:'CalcBridge Practice Partner: I need practice on A6b — rationalizing an expression like (√(4+h)−2)/h, which appears in calculus limits. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Complete the square',
+      short: 'Complete Sq.',
+      cov: 'full',
+      ff: '<strong>Unit F — Quadratic Equations</strong><br>F.2a Complete the Square of a Binomial<br>F.2b Solve with Leading Coeff. = 1<br>F.2c Solve with Any Leading Coeff.',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A7a', label:'Leading coefficient = 1',
+          q:'Complete the square: x² + 6x + 2',
+          a:'(x+3)² − 7 — take half of 6, square it: (3)² = 9. Add and subtract: (x²+6x+9) − 9 + 2',
+          hint:'Half the x-coefficient, square it, add and subtract inside the expression.',
+          ai:'CalcBridge Practice Partner: I need practice on A7a — completing the square when the leading coefficient is 1. Please confirm the skill and show me the menu.' },
+        { code:'A7b', label:'Leading coefficient ≠ 1',
+          q:'Complete the square: 3x² + 12x + 1',
+          a:'3(x+2)² − 11 — factor out 3: 3(x²+4x)+1 = 3(x²+4x+4−4)+1 = 3(x+2)²−12+1',
+          hint:'Factor out the leading coefficient from the x-terms first. Then complete the square inside.',
+          ai:'CalcBridge Practice Partner: I need practice on A7b — completing the square when the leading coefficient is not 1. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Solve equations',
+      short: 'Solve Eqns.',
+      cov: 'full',
+      ff: '<strong>Multiple units — choose by type:</strong><br>Linear → Unit B<br>Quadratic → Unit F (F.3 Quadratic Formula)<br>Rational → I.4 Solve Rational Equations<br>Radical → J.6 Solve Radical Equations<br>Polynomial → H.5 Polynomial Equations',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A8a', label:'Linear equation',
+          q:'Solve: 2x − 3 = 7 + (1/3)x',
+          a:'x = 6 — multiply through by 3, collect x-terms: 6x−9 = 21+x → 5x = 30',
+          hint:'Eliminate fractions first by multiplying every term by the LCD.',
+          ai:'CalcBridge Practice Partner: I need practice on A8a — solving a linear equation. Please confirm the skill and show me the menu.' },
+        { code:'A8b', label:'Rational equation',
+          q:'Solve: 3/(x+2) = 1/(x−1)',
+          a:'x = 5/2 — cross-multiply: 3(x−1) = x+2 → 2x = 5 → x = 5/2. Check: x ≠ −2 and x ≠ 1 ✓',
+          hint:'Multiply both sides by the LCD to clear all denominators. Always check that your solution doesn\'t make a denominator zero.',
+          ai:'CalcBridge Practice Partner: I need practice on A8b — solving a rational equation. Please confirm the skill and show me the menu.' },
+        { code:'A8c', label:'Quadratic by factoring',
+          q:'Solve: x² + 3x − 10 = 0',
+          a:'x = 2 or x = −5 — factor: (x+5)(x−2) = 0',
+          hint:'Find two numbers that multiply to −10 and add to 3.',
+          ai:'CalcBridge Practice Partner: I need practice on A8c — solving a quadratic equation by factoring. Please confirm the skill and show me the menu.' },
+        { code:'A8d', label:'Quadratic by the formula',
+          q:'Solve: 3x² − 6x + 2 = 0',
+          a:'x = 1 ± (√3/3) — use the quadratic formula with a=3, b=−6, c=2: x = (6 ± 2√3)/6 = 1 ± (√3/3)',
+          hint:'Use x = (−b ± √(b²−4ac)) / 2a. Simplify √12 = 2√3.',
+          ai:'CalcBridge Practice Partner: I need practice on A8d — solving a quadratic equation using the quadratic formula. Please confirm the skill and show me the menu.' },
+        { code:'A8e', label:'Polynomial equation by substitution',
+          q:'Solve: x⁴ − 5x² + 4 = 0',
+          a:'x = ±1 or x = ±2 — let u = x²: (u−1)(u−4) = 0 → u = 1 or u = 4',
+          hint:'Let u = x² to turn this into a quadratic, solve for u, then back-substitute.',
+          ai:'CalcBridge Practice Partner: I need practice on A8e — solving a polynomial equation using substitution (like u = x²). Please confirm the skill and show me the menu.' },
+        { code:'A8f', label:'Absolute value equation',
+          q:'Solve: 2|x + 1| = 8',
+          a:'x = 3 or x = −5 — divide by 2 first: |x+1| = 4, so x+1 = 4 or x+1 = −4',
+          hint:'Isolate the absolute value expression, then split into two cases.',
+          ai:'CalcBridge Practice Partner: I need practice on A8f — solving an absolute value equation. Please confirm the skill and show me the menu.' },
+        { code:'A8g', label:'Equation with fractional exponents',
+          q:'Solve: 3x(9−x)^(−1/2) − 2√(9−x) = 0',
+          a:'x = 18/5 — multiply through by (9−x)^(1/2): 3x − 2(9−x) = 0 → 5x = 18',
+          hint:'First note that x < 9 is required (so the original expression is defined). Multiply every term by (9−x)^(1/2): 3x − 2(9−x) = 0 → 5x = 18. Check: 18/5 = 3.6 < 9 ✓',
+          ai:'CalcBridge Practice Partner: I need practice on A8g — solving an equation that contains a fractional exponent. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Solve inequalities',
+      short: 'Inequalities',
+      cov: 'full',
+      ff: '<strong>Multiple units — choose by type:</strong><br>Linear → B.7 Solve Linear Inequalities<br>Absolute Value → B.9 Absolute Value Inequalities<br>Rational → I.6 Rational Inequalities<br>Quadratic → F.7 Quadratic Inequalities',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'A9a', label:'Compound linear inequality',
+          q:'Solve −1 ≤ 3 − 2x ≤ 11, write in interval notation',
+          a:'[−4, 2] — subtract 3: −4 ≤ −2x ≤ 8, divide by −2 and flip both signs: 2 ≥ x ≥ −4, which rewritten in standard order is −4 ≤ x ≤ 2.',
+          hint:'Operate on all three parts simultaneously. Dividing by −2 flips both inequality signs, giving 2 ≥ x ≥ −4. Rewrite left-to-right: −4 ≤ x ≤ 2.',
+          ai:'CalcBridge Practice Partner: I need practice on A9a — solving a compound linear inequality. Please confirm the skill and show me the menu.' },
+        { code:'A9b', label:'Quadratic inequality',
+          q:'Solve x² > 3x + 4, write in interval notation',
+          a:'(−∞, −1) ∪ (4, ∞) — rewrite: x²−3x−4 > 0 → (x−4)(x+1) > 0, sign chart',
+          hint:'Move everything to one side, factor, then use a sign chart with the zeros as boundary points.',
+          ai:'CalcBridge Practice Partner: I need practice on A9b — solving a quadratic inequality using a sign chart. Please confirm the skill and show me the menu.' },
+        { code:'A9c', label:'Polynomial inequality (3 factors)',
+          q:'Solve x(x+1)(x−3) < 0, write in interval notation',
+          a:'(−∞, −1) ∪ (0, 3) — sign chart with critical values x = −1, 0, 3',
+          hint:'Plot the three zeros on a number line. Test a value in each interval to determine the sign.',
+          ai:'CalcBridge Practice Partner: I need practice on A9c — solving a polynomial inequality with three factors using a sign chart. Please confirm the skill and show me the menu.' },
+        { code:'A9d', label:'Absolute value inequality',
+          q:'Solve |2x − 1| ≤ 5, write in interval notation',
+          a:'[−2, 3] — rewrite: −5 ≤ 2x−1 ≤ 5 → −4 ≤ 2x ≤ 6 → −2 ≤ x ≤ 3',
+          hint:'|expression| ≤ k becomes −k ≤ expression ≤ k (a compound inequality).',
+          ai:'CalcBridge Practice Partner: I need practice on A9d — solving an absolute value inequality. Please confirm the skill and show me the menu.' },
+        { code:'A9e', label:'Rational inequality',
+          q:'Solve (x+2)/(x−1) ≤ 3, write in interval notation',
+          a:'(−∞, 1) ∪ [5/2, ∞) — rewrite: (x+2)/(x−1) − 3 ≤ 0 → (−2x+5)/(x−1) ≤ 0. Sign chart: x < 1 → neg/neg = neg ≤ 0 ✓; 1 < x < 5/2 → pos/pos = pos > 0 ✗; x = 5/2 → zero/pos = 0 ≤ 0 ✓; x > 5/2 → neg/pos = neg ≤ 0 ✓. Note: x = 1 excluded (denominator = 0).',
+          hint:'Move everything to one side and combine. At x = 5/2 the numerator equals zero, so the expression equals 0 — that satisfies ≤ 0, which is why 5/2 is included in the answer.',
+          ai:'CalcBridge Practice Partner: I need practice on A9e — solving a rational inequality using a sign chart. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'True or False? Algebraic claims',
+      short: 'True/False',
+      cov: 'full',
+      ff: '<strong>CalcBridge Interactive App</strong><br>True or False? Algebraic Verification Practice',
+      cbc: null,
+      app: { label: 'Open the app', href: 'https://saccalcbridgeverifier.netlify.app/' },
+      sym: true,
+      parts: [
+        { code:'A10a', label:'Distributing exponents over addition',
+          q:'True or False? √(x+y) = √x + √y. Justify with a counterexample.',
+          a:'False. Try x=9, y=16: √25 = 5, but √9 + √16 = 3+4 = 7. ✗',
+          hint:'To disprove an algebraic claim, one counterexample is enough. Pick simple numbers.',
+          ai:'CalcBridge Practice Partner: I need practice on A10a — evaluating algebraic claims about exponents or roots distributing over addition. Please confirm the skill and show me the menu.' },
+        { code:'A10b', label:'Product rule for exponents',
+          q:'True or False? (xy)² = x²y². Justify.',
+          a:'True. (xy)² = (xy)(xy) = x·x·y·y = x²y². ✓',
+          hint:'Write out the multiplication in full to verify the pattern.',
+          ai:'CalcBridge Practice Partner: I need practice on A10b — identifying when an algebraic property is correctly applied. Please confirm the skill and show me the menu.' },
+        { code:'A10c', label:'Square root of a sum',
+          q:'True or False? √(x² + 9) = x + 3. Justify with a counterexample.',
+          a:'False. Try x=4: √(16+9) = √25 = 5, but 4+3 = 7. ✗',
+          hint:'The square root does not distribute over addition. √(a²+b²) ≠ a+b.',
+          ai:'CalcBridge Practice Partner: I need practice on A10c — evaluating claims about square roots of sums. Please confirm the skill and show me the menu.' },
+        { code:'A10d', label:'Distributing a denominator incorrectly',
+          q:'True or False? (a+b)/a = 1+b. Justify.',
+          a:'False. (a+b)/a = 1 + b/a, not 1+b. Try a=2, b=4: 6/2 = 3 ≠ 1+4 = 5. ✗',
+          hint:'Each term in the numerator gets divided by the denominator, not just the first one.',
+          ai:'CalcBridge Practice Partner: I need practice on A10d — evaluating claims about distributing a denominator across a sum. Please confirm the skill and show me the menu.' },
+        { code:'A10e', label:'Splitting a fraction across subtraction',
+          q:'True or False? 1/(x−y) = 1/x − 1/y. Justify with a counterexample.',
+          a:'False. Try x=3, y=1: 1/(3−1) = 1/2, but 1/3 − 1/1 = −2/3. ✗',
+          hint:'You cannot split the denominator of a single fraction. 1/(x−y) stays as is.',
+          ai:'CalcBridge Practice Partner: I need practice on A10e — evaluating claims about splitting a fraction wrongly. Please confirm the skill and show me the menu.' },
+        { code:'A10f', label:'Simplifying a complex fraction correctly',
+          q:'True or False? (1/x) / (1/y + 1/z) = yz / (x(y+z)). Justify.',
+          a:'True (provided x, y, z ≠ 0 and y+z ≠ 0). Multiply top and bottom by xyz: numerator = yz, denominator = x(z+y). ✓',
+          hint:'Multiply every part of the complex fraction by the LCD of all inner fractions.',
+          ai:'CalcBridge Practice Partner: I need practice on A10f — evaluating claims about simplifying complex fractions. Please confirm the skill and show me the menu.' },
+      ]
+    },
+  ],
+  B: [
+    {
+      skill: 'Find equations of lines',
+      short: 'Line Eqns.',
+      cov: 'full',
+      ff: '<strong>Unit D — Linear Graphs</strong><br>D.6a Line from Slope + y-intercept<br>D.6b Line from Slope + a Point<br>D.6c Line from Two Points<br>D.6d–e Parallel and Perpendicular Lines',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'B1a', label:'Line from slope and point (slope-intercept)',
+          q:'Find the equation of the line through (−1, 4) with slope 2.',
+          a:'y = 2x + 6 — use y−4 = 2(x+1), simplify',
+          hint:'Use point-slope form y−y₁ = m(x−x₁), then solve for y.',
+          ai:'CalcBridge Practice Partner: I need practice on B1a — writing the equation of a line given a slope and a point. Please confirm the skill and show me the menu.' },
+        { code:'B1b', label:'Horizontal line',
+          q:'Find the equation of the line through (3, −2) parallel to the x-axis.',
+          a:'y = −2 — horizontal lines have slope 0 and pass through the given y-value',
+          hint:'Every horizontal line has the form y = k for some constant k.',
+          ai:'CalcBridge Practice Partner: I need practice on B1b — equations of horizontal lines. Please confirm the skill and show me the menu.' },
+        { code:'B1c', label:'Vertical line',
+          q:'Find the equation of the line through (−4, 7) parallel to the y-axis.',
+          a:'x = −4 — vertical lines have undefined slope and pass through the given x-value',
+          hint:'Every vertical line has the form x = k for some constant k.',
+          ai:'CalcBridge Practice Partner: I need practice on B1c — equations of vertical lines. Please confirm the skill and show me the menu.' },
+        { code:'B1d', label:'Line parallel to a given line',
+          q:'Find the equation of the line through (4, −1) parallel to 3x − y = 5.',
+          a:'y = 3x − 13 — parallel lines share the same slope. Rewrite given line: y = 3x−5, so slope = 3',
+          hint:'Parallel lines have equal slopes. Find the slope from the given line, then use point-slope form.',
+          ai:'CalcBridge Practice Partner: I need practice on B1d — finding the equation of a line parallel to a given line. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Equation of a circle',
+      short: 'Circle Eqns.',
+      cov: 'full',
+      ff: '<strong>Unit C — Linear Math Models</strong><br>Distance, Midpoint, and Circles section',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'B2a', label:'Write the equation given center and a point on the circle',
+          q:'Find the equation of the circle with center (2, −3) passing through (5, 1).',
+          a:'(x−2)² + (y+3)² = 25 — radius = distance from center to point: √(9+16) = 5',
+          hint:'Use the distance formula to find the radius, then write (x−h)² + (y−k)² = r².',
+          ai:'CalcBridge Practice Partner: I need practice on B2a — writing the equation of a circle from a center and a point. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Circle center and radius',
+      short: 'Circle Props.',
+      cov: 'full',
+      ff: '<strong>Unit C — Linear Math Models</strong><br>Distance, Midpoint, and Circles section<br>(Pairs with Unit F · F.2 Completing the Square)',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'B3a', label:'Complete the square to find center and radius',
+          q:'Find the center and radius of x² + y² + 4x − 8y − 5 = 0.',
+          a:'Center (−2, 4), radius 5 — complete the square on x and y separately: (x+2)²+(y−4)² = 25',
+          hint:'Group the x-terms and y-terms, then complete the square on each. Add the same amounts to the right side.',
+          ai:'CalcBridge Practice Partner: I need practice on B3a — finding the center and radius of a circle by completing the square. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Distance and midpoint',
+      short: 'Dist. & Mid.',
+      cov: 'full',
+      ff: '<strong>Unit C — Linear Math Models</strong><br>C.4b Use the Pythagorean Theorem<br>C: Distance, Midpoint, and Circles',
+      cbc: null, app: null, sym: true,
+      parts: [
+        { code:'B4a', label:'Slope between two points',
+          q:'Find the slope of the line through (1, −3) and (4, 6).',
+          a:'3 — slope = (6−(−3))/(4−1) = 9/3 = 3',
+          hint:'slope = (y₂−y₁)/(x₂−x₁). Keep track of sign changes.',
+          ai:'CalcBridge Practice Partner: I need practice on B4a — finding the slope between two points. Please confirm the skill and show me the menu.' },
+        { code:'B4b', label:'Equation of the line and its intercepts',
+          q:'Find the equation of the line through (1, −3) and (4, 6). State both intercepts.',
+          a:'y = 3x − 6; x-intercept: (2, 0), y-intercept: (0, −6)',
+          hint:'Find the slope first, then use point-slope form. Set y=0 for x-intercept, x=0 for y-intercept.',
+          ai:'CalcBridge Practice Partner: I need practice on B4b — finding the equation of a line through two points and its intercepts. Please confirm the skill and show me the menu.' },
+        { code:'B4c', label:'Midpoint',
+          q:'Find the midpoint of the segment from (1, −3) to (4, 6).',
+          a:'(5/2, 3/2) — midpoint = ((1+4)/2, (−3+6)/2)',
+          hint:'Average the x-coordinates, then average the y-coordinates.',
+          ai:'CalcBridge Practice Partner: I need practice on B4c — finding the midpoint of a segment. Please confirm the skill and show me the menu.' },
+        { code:'B4d', label:'Distance',
+          q:'Find the distance from (1, −3) to (4, 6).',
+          a:'3√10 — d = √((4−1)² + (6+3)²) = √(9+81) = √90 = 3√10',
+          hint:'Distance formula: d = √((x₂−x₁)² + (y₂−y₁)²). Simplify the radical.',
+          ai:'CalcBridge Practice Partner: I need practice on B4d — finding the distance between two points. Please confirm the skill and show me the menu.' },
+        { code:'B4e', label:'Perpendicular bisector',
+          q:'Find the equation of the perpendicular bisector of the segment from (1, −3) to (4, 6).',
+          a:'x + 3y = 7 — slope of segment = 3, perp slope = −1/3, passes through midpoint (5/2, 3/2)',
+          hint:'Find the midpoint and the negative reciprocal of the slope, then write the line equation.',
+          ai:'CalcBridge Practice Partner: I need practice on B4e — finding the perpendicular bisector of a segment. Please confirm the skill and show me the menu.' },
+        { code:'B4f', label:'Circle with a given diameter',
+          q:'Find the equation of the circle with diameter endpoints (1, −3) and (4, 6).',
+          a:'(x − 5/2)² + (y − 3/2)² = 90/4 — center is the midpoint, radius is half the distance',
+          hint:'The center of a circle is the midpoint of its diameter. The radius is half the full diameter length.',
+          ai:'CalcBridge Practice Partner: I need practice on B4f — writing the equation of a circle given its diameter endpoints. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Sketch geometric regions',
+      short: 'Regions',
+      cov: 'part',
+      ff: '<strong>Unit D — Linear Graphs</strong> (partial)<br>D.7 Graphs of Linear Inequalities<br><em>Note: covers linear boundaries only</em>',
+      cbc: null, app: null, sym: false,
+      prompts: {
+        explain: "I'm studying linear inequalities in two variables. Can you explain: what is a linear inequality in two variables, what does its solution look like as a graph, and what's the difference between a dashed and a solid boundary line?",
+        explore: "I graphed the line 2x + y = 4. But when I change the = to ≤, why does the solution become an entire region instead of just a line?",
+        practice: "I have the inequality y > 2x − 3 and I need to graph its solution region. Can you be my tutor? Don't give me the answer — coach me one step at a time. Start by asking me what I'd do first.",
+        followup: ["Can you say that differently?", "Give me a second example.", "Is my shading correct if I shade above the line?", "What changes if the inequality is ≥ instead of >?"]
+      },
+      parts: [
+        { code:'B5a', label:'Horizontal strip',
+          q:'Describe and sketch the region: 1 ≤ y ≤ 4',
+          a:'A horizontal strip between the lines y=1 and y=4. Both boundary lines are solid (≤).',
+          hint:'The region is all points whose y-coordinate falls between 1 and 4.',
+          ai:'CalcBridge Practice Partner: I need practice on B5a — sketching a horizontal strip defined by a compound inequality in y. Please confirm the skill and show me the menu.' },
+        { code:'B5b', label:'Rectangle from absolute value inequalities',
+          q:'Describe and sketch the region: |x| ≤ 3 and |y| ≤ 1',
+          a:'A rectangle: −3 ≤ x ≤ 3 and −1 ≤ y ≤ 1. Vertices at (±3, ±1).',
+          hint:'|x| ≤ 3 means −3 ≤ x ≤ 3. Apply the same reasoning to |y| ≤ 1.',
+          ai:'CalcBridge Practice Partner: I need practice on B5b — describing a rectangular region defined by absolute value inequalities. Please confirm the skill and show me the menu.' },
+        { code:'B5c', label:'Half-plane from a linear inequality',
+          q:'Describe and sketch the region: y ≥ 2x − 1',
+          a:'The half-plane on and above the line y = 2x−1. The boundary is solid (≥).',
+          hint:'Graph the boundary line first, then test a point like (0,0) to determine which side to shade.',
+          ai:'CalcBridge Practice Partner: I need practice on B5c — sketching the solution region of a linear inequality in two variables. Please confirm the skill and show me the menu.' },
+        { code:'B5d', label:'Parabolic region',
+          q:'Describe and sketch the region: y ≤ 4 − x²',
+          a:'The region on and below the downward-opening parabola y = 4−x². Vertex at (0,4), x-intercepts at ±2.',
+          hint:'Graph the parabola as the boundary, then test a point (try the origin) to determine which side satisfies the inequality.',
+          ai:'CalcBridge Practice Partner: I need practice on B5d — sketching a region bounded by a parabola. Please confirm the skill and show me the menu.' },
+        { code:'B5e', label:'Circular region',
+          q:'Describe and sketch the region: x² + y² ≥ 9',
+          a:'The exterior of or on the circle of radius 3 centered at the origin. Boundary is solid.',
+          hint:'Rewrite as the circle equation x²+y²=9 (radius 3). The inequality ≥ means on or outside.',
+          ai:'CalcBridge Practice Partner: I need practice on B5e — sketching the region defined by a circle inequality. Please confirm the skill and show me the menu.' },
+        { code:'B5f', label:'Ellipse',
+          q:'Identify the shape: 4x² + 9y² = 36. Find the x- and y-intercepts.',
+          a:'Ellipse: x²/9 + y²/4 = 1. x-intercepts: ±3; y-intercepts: ±2.',
+          hint:'Divide through by 36 to get standard form x²/a² + y²/b² = 1.',
+          ai:'CalcBridge Practice Partner: I need practice on B5f — identifying and sketching an ellipse from its equation. Please confirm the skill and show me the menu.' },
+      ]
+    },
+  ],
+  C: [
+    {
+      skill: 'Read and interpret a graph',
+      short: 'Read Graphs',
+      cov: 'full',
+      ff: '<strong>Unit D</strong> — D.2 Graph Linear Equations<br><strong>Unit F</strong> — F.5 Graph Quadratic Functions',
+      cbc: '<strong>OpenStax 1.1</strong> — Review of Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'C1a', label:'Evaluate f(x) at a specific input',
+          q:'A graph passes through (0, 3) and (2, 7). What is f(0)?',
+          a:'f(0) = 3 — the y-value of the graph at x = 0 is 3.',
+          hint:'Evaluating f(a) means finding the y-coordinate of the point where x = a.',
+          ai:'CalcBridge Practice Partner: I need practice on C1a — reading function values from a graph. Please confirm the skill and show me the menu.' },
+        { code:'C1b', label:'Identify where the graph reaches a given output',
+          q:'A curve on a graph has y = 0 at x = −2 and x = 3. What are these points called?',
+          a:'The points (−2, 0) and (3, 0) are the x-intercepts. The values x = −2 and x = 3 are the zeros of f (where f(x) = 0).',
+          hint:'Where the graph crosses or touches the x-axis, the function value is zero.',
+          ai:'CalcBridge Practice Partner: I need practice on C1b — identifying where a function reaches a specified y-value. Please confirm the skill and show me the menu.' },
+        { code:'C1c', label:'Find x-values for a given y-value',
+          q:'On a graph, the horizontal line y = 4 intersects f at x = −1, x = 2, and x = 5. What does f(2) equal?',
+          a:'f(2) = 4 — x = 2 is one of the values where f(x) = 4.',
+          hint:'The question asks for f(2), which is the y-value of the graph at x = 2.',
+          ai:'CalcBridge Practice Partner: I need practice on C1c — reading which x-values produce a given output value. Please confirm the skill and show me the menu.' },
+        { code:'C1d', label:'Find the zeros from a graph',
+          q:'A graph crosses the x-axis at x = −3 and x = 1 and touches it at x = 4. List all the zeros of f.',
+          a:'The zeros are x = −3, x = 1, and x = 4. At x = 4, f touches but does not cross the axis.',
+          hint:'Every x-intercept is a zero. "Touches" typically means an even-multiplicity root.',
+          ai:'CalcBridge Practice Partner: I need practice on C1d — finding the zeros of a function from its graph. Please confirm the skill and show me the menu.' },
+        { code:'C1e', label:'State the domain and range from a graph',
+          q:'A function\'s graph is defined for every x from −4 to 4 (including endpoints) and takes every y-value from 0 to 5 (including endpoints). State the domain and range in interval notation.',
+          a:'Domain: [−4, 4]; Range: [0, 5]',
+          hint:'Domain = all x-values where the graph exists. Range = all y-values the graph actually reaches. Use [ ] when endpoints are included.',
+          ai:'CalcBridge Practice Partner: I need practice on C1e — reading the domain and range from a graph. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Evaluate the difference quotient',
+      short: 'Diff. Quotient',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.1</strong> — Review of Functions<br><strong>CBC #1</strong> — Rates of Change and the Difference Quotient',
+      app: null, sym: true,
+      parts: [
+        { code:'C2a', label:'Compute and simplify the difference quotient',
+          q:'If f(x) = x², find and simplify (f(3+h) − f(3)) / h.',
+          a:'6 + h (for h ≠ 0) — expand (3+h)² = 9+6h+h², subtract f(3) = 9, divide by h: (6h+h²)/h = 6+h',
+          hint:'This is the definition of the derivative at x = 3. Expand, cancel what you can, let the structure show.',
+          ai:'CalcBridge Practice Partner: I need practice on C2a — computing and simplifying the difference quotient. This is the definition of the derivative. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Find the domain of a function',
+      short: 'Domain',
+      cov: 'full',
+      ff: '<strong>Unit J</strong> — J.7b Domain of a Radical Function',
+      cbc: '<strong>OpenStax 1.1</strong> — Review of Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'C3a', label:'Rational function (denominator factors)',
+          q:'Find the domain of f(x) = (x+1) / (x²−5x+6)',
+          a:'All reals except x = 2 and x = 3 — factor denominator: (x−2)(x−3). Domain: (−∞,2)∪(2,3)∪(3,∞)',
+          hint:'Set the denominator equal to zero and solve. Those values are excluded from the domain.',
+          ai:'CalcBridge Practice Partner: I need practice on C3a — finding the domain of a rational function. Please confirm the skill and show me the menu.' },
+        { code:'C3b', label:'Square root in numerator with denominator',
+          q:'Find the domain of g(x) = √(x+1) / (x²−4)',
+          a:'[−1, 2) ∪ (2, ∞) — the radical requires x ≥ −1; this already excludes x = −2. The denominator (x−2)(x+2) = 0 at x = ±2, but only x = 2 falls in [−1, ∞) and needs to be excluded.',
+          hint:'Start with the radical restriction (x ≥ −1). Then check which denominator zeros fall inside that interval. Only x = 2 does; x = −2 is already excluded.',
+          ai:'CalcBridge Practice Partner: I need practice on C3b — finding the domain of a function that has both a radical and a rational restriction. Please confirm the skill and show me the menu.' },
+        { code:'C3c', label:'Sum of two radical functions',
+          q:'Find the domain of h(x) = √(x+2) + √(3−x)',
+          a:'[−2, 3] — both radicands must be ≥ 0: x ≥ −2 AND x ≤ 3',
+          hint:'Both radicals must be defined simultaneously. Find where each is defined, then intersect the intervals.',
+          ai:'CalcBridge Practice Partner: I need practice on C3c — finding the domain when a function has two separate radical restrictions. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Describe graph transformations',
+      short: 'Transformations',
+      cov: 'full',
+      ff: '<strong>Unit F</strong> — F.6a–d Graph Quadratic Functions Using Transformations',
+      cbc: '<strong>OpenStax 1.2</strong> — Basic Classes of Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'C4a', label:'Reflection about the x-axis',
+          q:'What transformation takes y = f(x) to y = −f(x)?',
+          a:'Reflection about the x-axis — every y-value is negated.',
+          hint:'A negative outside the function flips the graph vertically.',
+          ai:'CalcBridge Practice Partner: I need practice on C4a — identifying and applying reflections of graphs. Please confirm the skill and show me the menu.' },
+        { code:'C4b', label:'Vertical stretch and vertical shift',
+          q:'Describe how y = 3f(x) + 2 differs from y = f(x).',
+          a:'Stretch vertically by a factor of 3, then shift up 2 units.',
+          hint:'Multiplying by 3 stretches; adding 2 shifts up. Order matters: stretch first, then shift.',
+          ai:'CalcBridge Practice Partner: I need practice on C4b — describing combined vertical transformations (stretch and shift). Please confirm the skill and show me the menu.' },
+        { code:'C4c', label:'Horizontal shift',
+          q:'Describe how y = f(x+2) − 4 differs from y = f(x).',
+          a:'Shift left 2 units (replacing x with x+2 moves left), then shift down 4 units.',
+          hint:'f(x+2) shifts LEFT by 2 — this is counterintuitive! Adding inside moves in the opposite direction.',
+          ai:'CalcBridge Practice Partner: I need practice on C4c — describing horizontal and vertical shifts of a graph. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Sketch a graph without a calculator',
+      short: 'Sketch Graphs',
+      cov: 'full',
+      ff: '<strong>Unit D</strong> — D.2–D.5 Linear Graphs<br><strong>Unit F</strong> — F.5 Graph Quadratics Using Properties',
+      cbc: '<strong>OpenStax 1.2</strong> — Basic Classes of Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'C5a', label:'Standard cubic y = x³',
+          q:'Describe key features of y = x³: symmetry, end behavior, intercepts.',
+          a:'Odd symmetry (rotational). As x→−∞, y→−∞; as x→+∞, y→+∞. Passes through origin.',
+          hint:'The cubic has a point of inflection at the origin, rising steeply on both sides.',
+          ai:'CalcBridge Practice Partner: I need practice on C5a — sketching y = x³ and describing its key features. Please confirm the skill and show me the menu.' },
+        { code:'C5b', label:'Horizontally shifted cubic',
+          q:'How does y = (x−2)³ compare to y = x³?',
+          a:'Shifts right 2 units — the graph looks the same but the inflection point moves from (0,0) to (2,0).',
+          hint:'Replacing x with (x−2) shifts the graph right by 2.',
+          ai:'CalcBridge Practice Partner: I need practice on C5b — sketching a cubic that has been horizontally shifted. Please confirm the skill and show me the menu.' },
+        { code:'C5c', label:'Cubic with two transformations',
+          q:'Describe y = (x+1)³ − 2 as a transformation of y = x³.',
+          a:'Shift left 1 unit (replace x with x+1), then shift down 2 units.',
+          hint:'Read the transformations from the equation: (x+1) moves left, −2 moves down.',
+          ai:'CalcBridge Practice Partner: I need practice on C5c — describing a cubic that has been shifted both horizontally and vertically. Please confirm the skill and show me the menu.' },
+        { code:'C5d', label:'Downward parabola y = 4 − x²',
+          q:'State the vertex, x-intercepts, and direction of opening for y = 9 − x².',
+          a:'Vertex (0,9), opens downward, x-intercepts at (3,0) and (−3,0).',
+          hint:'Rewrite as y = −(x²−9) to see it opens down. Set y=0 to find x-intercepts.',
+          ai:'CalcBridge Practice Partner: I need practice on C5d — sketching a downward-opening parabola. Please confirm the skill and show me the menu.' },
+        { code:'C5e', label:'Square root function',
+          q:'State the domain, starting point, and shape of y = √x.',
+          a:'Domain [0,∞). Starts at (0,0), increases and curves to the right, concave down.',
+          hint:'The square root is defined only for non-negative x. It grows more slowly as x increases.',
+          ai:'CalcBridge Practice Partner: I need practice on C5e — sketching the square root function. Please confirm the skill and show me the menu.' },
+        { code:'C5f', label:'Vertically scaled square root',
+          q:'How does y = ½√x compare to y = √x?',
+          a:'Vertically compressed by a factor of 1/2 — same shape but all y-values are halved.',
+          hint:'Multiplying by 1/2 outside compresses the graph downward.',
+          ai:'CalcBridge Practice Partner: I need practice on C5f — describing a vertical scaling of the square root function. Please confirm the skill and show me the menu.' },
+        { code:'C5g', label:'Reflected exponential y = −2^x',
+          q:'Describe y = −3^x: state the domain, range, and y-intercept.',
+          a:'Domain: all real numbers. Range: (−∞, 0). y-intercept: −1 (since −3⁰ = −1). No x-intercept.',
+          hint:'The base exponential 3^x is always positive, so its negative is always negative.',
+          ai:'CalcBridge Practice Partner: I need practice on C5g — sketching a reflected exponential function. Please confirm the skill and show me the menu.' },
+        { code:'C5h', label:'Shifted reciprocal y = 1 + 1/x',
+          q:'Find the asymptotes of y = 2 + 1/(x+1).',
+          a:'Vertical asymptote: x = −1 (denominator = 0). Horizontal asymptote: y = 2 (long-run behavior).',
+          hint:'Set the denominator to 0 for the vertical asymptote. The constant added tells you the horizontal asymptote.',
+          ai:'CalcBridge Practice Partner: I need practice on C5h — finding the asymptotes of a shifted reciprocal function. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Evaluate a piecewise function',
+      short: 'Piecewise',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.1</strong> — Review of Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'C6a', label:'Evaluate at specific inputs',
+          q:'Given f(x) = {x²+1 if x ≤ 0; 3x−1 if x > 0}, find f(−3) and f(2).',
+          a:'f(−3) = (−3)²+1 = 10; f(2) = 3(2)−1 = 5',
+          hint:'For each input, determine which piece applies based on the condition, then evaluate.',
+          ai:'CalcBridge Practice Partner: I need practice on C6a — evaluating a piecewise function at specific inputs. Please confirm the skill and show me the menu.' },
+        { code:'C6b', label:'Check continuity at the boundary',
+          q:'For f(x) = {x+2 if x < 1; 4−x if x ≥ 1}, is f continuous at x = 1? Explain.',
+          a:'Yes. Left-hand limit as x→1⁻: 1+2 = 3. Right-hand limit as x→1⁺: 4−1 = 3. Function value: f(1) = 4−1 = 3. All three equal 3, so f is continuous at x = 1.',
+          hint:'Evaluate both pieces at the boundary point. If they agree, the function is continuous there.',
+          ai:'CalcBridge Practice Partner: I need practice on C6b — checking whether a piecewise function is continuous at its boundary. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Compute function compositions',
+      short: 'Composition',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.1</strong> — Review of Functions<br><strong>OpenStax 1.4</strong> — Inverse Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'C7a', label:'(f ∘ g)(x)',
+          q:'Let f(x) = x+3 and g(x) = x². Find (f∘g)(x).',
+          a:'x²+3 — substitute g(x) into f: f(g(x)) = f(x²) = x²+3',
+          hint:'(f∘g)(x) means f applied after g. Plug the entire expression g(x) in place of x in f.',
+          ai:'CalcBridge Practice Partner: I need practice on C7a — computing (f∘g)(x). Please confirm the skill and show me the menu.' },
+        { code:'C7b', label:'(g ∘ f)(x)',
+          q:'Using f(x) = x+3 and g(x) = x², find (g∘f)(x).',
+          a:'(x+3)² — substitute f(x) into g: g(f(x)) = g(x+3) = (x+3)²',
+          hint:'(g∘f)(x) means g applied after f. Note that (f∘g)(x) ≠ (g∘f)(x) in general.',
+          ai:'CalcBridge Practice Partner: I need practice on C7b — computing (g∘f)(x) and comparing it to (f∘g)(x). Please confirm the skill and show me the menu.' },
+        { code:'C7c', label:'Triple composition',
+          q:'If h(x) = x+1, find (h∘h∘h)(x).',
+          a:'x+3 — apply h three times: x → x+1 → x+2 → x+3',
+          hint:'Apply the function one step at a time. Each application adds 1.',
+          ai:'CalcBridge Practice Partner: I need practice on C7c — computing a triple composition. Please confirm the skill and show me the menu.' },
+      ]
+    },
+  ],
+  D: [
+    {
+      skill: 'Convert degrees to radians',
+      short: 'Deg → Rad',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'D1a', label:'Positive degree measure',
+          q:'Convert 240° to radians.',
+          a:'4π/3 — multiply by π/180: 240 × π/180 = 4π/3',
+          hint:'Multiply by π/180. Simplify the fraction by canceling common factors.',
+          ai:'CalcBridge Practice Partner: I need practice on D1a — converting a positive degree measure to radians. Please confirm the skill and show me the menu.' },
+        { code:'D1b', label:'Negative degree measure',
+          q:'Convert −45° to radians.',
+          a:'−π/4 — multiply by π/180: −45 × π/180 = −π/4',
+          hint:'The sign carries through. Negative degrees convert to negative radians.',
+          ai:'CalcBridge Practice Partner: I need practice on D1b — converting a negative degree measure to radians. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Convert radians to degrees',
+      short: 'Rad → Deg',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'D2a', label:'Standard radian fraction',
+          q:'Convert 3π/4 to degrees.',
+          a:'135° — multiply by 180/π: (3π/4) × (180/π) = 135',
+          hint:'Multiply by 180/π. The π cancels.',
+          ai:'CalcBridge Practice Partner: I need practice on D2a — converting a radian measure to degrees. Please confirm the skill and show me the menu.' },
+        { code:'D2b', label:'Non-standard (decimal) radian',
+          q:'Convert 1 radian to degrees (give the exact form and an approximation).',
+          a:'180/π degrees ≈ 57.3° — multiply 1 × (180/π)',
+          hint:'One radian is a little less than 60 degrees. The exact answer is 180/π.',
+          ai:'CalcBridge Practice Partner: I need practice on D2b — converting a non-standard radian measure to degrees. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Find arc length (s = rθ)',
+      short: 'Arc Length',
+      cov: 'part',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions<br><em>Tip: s = rθ requires θ in radians.</em>',
+      app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the arc length formula s = rθ? What does each variable represent, why does θ need to be in radians, and can you walk me through one example from start to finish?",
+        explore: "I know that s = rθ gives arc length, but I want to understand why multiplying the radius by the angle in radians gives arc length. Where does this formula actually come from?",
+        practice: "I'm trying to find arc length when the radius is 6 cm and the central angle is 120°. Can you tutor me through it? Start by asking me what I need to do before I plug anything into the formula.",
+        followup: ["Can you rephrase that?", "What happens if the angle is given in degrees instead of radians?", "Can you check my setup: s = 6 · 120?", "What if I'm given the arc length and need to find the angle?"]
+      },
+      parts: [
+        { code:'D3a', label:'Apply s = rθ with angle in radians',
+          q:'A circle has radius 5 cm. Find the arc length cut by a central angle of π/3 radians.',
+          a:'5π/3 cm — apply s = rθ: s = 5 × (π/3) = 5π/3',
+          hint:'Make sure θ is in radians before substituting into s = rθ.',
+          ai:'CalcBridge Practice Partner: I need practice on D3a — applying the arc length formula s = rθ. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Evaluate exact trig values',
+      short: 'Exact Values',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'D4a', label:'First-quadrant unit circle value',
+          q:'Find the exact value of cos(π/6).',
+          a:'√3/2 — this is a unit circle benchmark. The reference angle π/6 (30°) gives (√3/2, 1/2).',
+          hint:'Know the exact values at 0, π/6, π/4, π/3, π/2 — that covers all benchmark angles.',
+          ai:'CalcBridge Practice Partner: I need practice on D4a — evaluating exact trig values in the first quadrant. Please confirm the skill and show me the menu.' },
+        { code:'D4b', label:'Third-quadrant value',
+          q:'Find the exact value of cos(5π/4).',
+          a:'−√2/2 — 5π/4 is in Q3, reference angle π/4. cos is negative in Q3: cos(π/4) = √2/2, so cos(5π/4) = −√2/2',
+          hint:'Find the reference angle, evaluate the trig function for it, then apply the correct sign for the quadrant.',
+          ai:'CalcBridge Practice Partner: I need practice on D4b — evaluating exact trig values in the third quadrant. Please confirm the skill and show me the menu.' },
+        { code:'D4c', label:'Reciprocal function in Q4',
+          q:'Find the exact value of csc(7π/6).',
+          a:'−2 — 7π/6 is in Q3, reference angle π/6. sin(7π/6) = −1/2, so csc = −2',
+          hint:'csc = 1/sin. Find sin at the reference angle, apply the quadrant sign, then take the reciprocal.',
+          ai:'CalcBridge Practice Partner: I need practice on D4c — evaluating exact values of reciprocal trig functions. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Right triangle trigonometry',
+      short: 'Right Triangle',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'D5a', label:'Find a side using SOH-CAH-TOA',
+          q:'In a right triangle with hypotenuse 10 and angle θ at one vertex, express the side opposite θ.',
+          a:'10 sin θ — from SOH: sin θ = opposite/hypotenuse → opposite = 10 sin θ (where θ is an acute angle in the right triangle)',
+          hint:'SOH: sin = opposite/hypotenuse. Solve for the opposite side.',
+          ai:'CalcBridge Practice Partner: I need practice on D5a — using SOH-CAH-TOA to express a side of a right triangle. Please confirm the skill and show me the menu.' },
+        { code:'D5b', label:'Find the adjacent side',
+          q:'In the same right triangle (hypotenuse 10, angle θ), express the side adjacent to θ.',
+          a:'10 cos θ — from CAH: cos θ = adjacent/hypotenuse → adjacent = 10 cos θ (the leg adjacent to θ, not the hypotenuse)',
+          hint:'CAH: cos = adjacent/hypotenuse. Solve for the adjacent side.',
+          ai:'CalcBridge Practice Partner: I need practice on D5b — using CAH to express the adjacent side of a right triangle. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Apply sum and difference identities',
+      short: 'Sum/Diff ID',
+      cov: 'part',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions<br><em>Identity: sin(x±y) = sinx cosy ± cosx siny</em>',
+      app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the sum and difference identities for sine and cosine? Walk me through how to use one of them to find the exact value of sin(75°).",
+        explore: "I keep wanting to write sin(A + B) = sin A + sin B, but I know that's wrong. Can you help me understand why that's not true and what the actual formula is?",
+        practice: "I need to find the exact value of cos(15°) using a sum or difference identity. Can you coach me through it? Ask me what two angles I might use, then guide me from there.",
+        followup: ["Can you say that a different way?", "What's another angle I could find using these identities?", "Can you check my work: cos(15°) = cos(45° − 30°) = cos45° · cos30° − sin45° · sin30°?", "How can I use these identities to simplify expressions, not just find values?"]
+      },
+      parts: [
+        { code:'D6a', label:'Use a sum identity to find an exact value',
+          q:'Find the exact value of sin(75°) using a sum identity.',
+          a:'(√6+√2)/4 — write sin(45°+30°) = sin45°cos30° + cos45°sin30° = (√2/2)(√3/2) + (√2/2)(1/2)',
+          hint:'Express 75° as 45°+30° or 30°+45°. Both angles are unit circle benchmarks.',
+          ai:'CalcBridge Practice Partner: I need practice on D6a — using the sum identity for sine to find an exact trig value. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Prove a trig identity',
+      short: 'Prove Identity',
+      cov: 'gap',
+      ff: null, cbc: null,
+      app: { label: 'Open Trig Identity Practice', href: 'https://saccalcbridgetrigidentities.netlify.app/' },
+      sym: false, gap: true,
+      prompts: {
+        explain: "Can you explain what it means to prove a trigonometric identity? Why am I only allowed to work on one side at a time? Walk me through an example proof and name what you're doing at each step.",
+        explore: "When proving a trig identity, I can only manipulate one side — but why? What's the logical difference between an identity and an equation I'm trying to solve?",
+        practice: "I need to prove that sin(θ)/tan(θ) = cos(θ), working on the left side only. Can you be my tutor? Don't prove it for me — guide me one step at a time and ask me to name each identity I use.",
+        followup: ["Can you explain that step differently?", "Give me a different identity to try.", "Here's my work — can you tell me if my reasoning is correct?", "What should I do if I get stuck in the middle of a proof?"]
+      },
+      parts: [
+        { code:'D7a', label:'Prove using fundamental identities',
+          q:'Prove: cot θ · cos θ + sin θ = csc θ, working from the left side only.',
+          a:'LHS = (cos θ/sin θ)·cos θ + sin θ = cos²θ/sin θ + sin²θ/sin θ = (cos²θ+sin²θ)/sin θ = 1/sin θ = csc θ ✓ (for sin θ ≠ 0)',
+          hint:'Rewrite cot θ as cos θ/sin θ, get a common denominator, then apply the Pythagorean identity.',
+          ai:'CalcBridge Practice Partner: I need practice on D7a — proving a trig identity using fundamental identities. Please confirm the skill and show me the menu.' },
+        { code:'D7b', label:'Prove using the double-angle identity',
+          q:'Prove: 2 tan x / (1 + tan²x) = sin 2x.',
+          a:'LHS = 2(sin x/cos x) / (1 + sin²x/cos²x) = 2(sin x/cos x) / (sec²x) = 2 sin x · cos x = sin 2x ✓ (for cos x ≠ 0)',
+          hint:'Convert tan to sin/cos, simplify the complex fraction, then recognize the double-angle pattern.',
+          ai:'CalcBridge Practice Partner: I need practice on D7b — proving a trig identity that involves the double-angle formula. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Solve a trig equation',
+      short: 'Solve Trig Eqn',
+      cov: 'part',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
+      app: { label: 'Open Trig Equations Practice', href: 'https://saccalcbridgetrigequations.netlify.app/' },
+      sym: true,
+      prompts: {
+        explain: "Can you explain how to solve 2cos(x) = √3 on the interval [0, 2π)? Walk me through each step: isolate the trig function, find the reference angle, identify the correct quadrants, and write the solutions.",
+        explore: "When I solve 2x = 4, I get exactly one answer. But when I solve 2cos(x) = 1, there are multiple solutions. Why do trig equations produce multiple solutions?",
+        practice: "I need to solve √3·tan(x) + 1 = 0 on [0, 2π). Can you coach me without giving me the answer? Ask me what the first step is, then guide me through the reference angle, the correct quadrants, and writing the solutions.",
+        followup: ["Can you say that differently?", "Show me another equation I can practice with.", "Can you check my answers: x = 5π/6 and x = 11π/6?", "How would I write the general solution using + 2πn?"]
+      },
+      parts: [
+        { code:'D8a', label:'Solve a trig equation by factoring',
+          q:'Solve 2cos²x − cos x = 0 on [0, 2π).',
+          a:'x = π/3, π/2, 3π/2, 5π/3 — factor: cos x(2cos x−1) = 0 → cos x = 0 or cos x = 1/2',
+          hint:'Factor out cos x. Then solve each equation separately using the unit circle.',
+          ai:'CalcBridge Practice Partner: I need practice on D8a — solving a trig equation by factoring. Please confirm the skill and show me the menu.' },
+      ]
+    },
+    {
+      skill: 'Sketch the graph of a trig function',
+      short: 'Graph Trig',
+      cov: 'full',
+      ff: null,
+      cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
+      app: null, sym: true,
+      parts: [
+        { code:'D9a', label:'Identify amplitude, period, and vertical shift',
+          q:'State the amplitude, period, and vertical shift of y = 2 cos(3x) − 1.',
+          a:'Amplitude: 2 | Period: 2π/3 | Vertical shift: 1 unit down',
+          hint:'For y = A cos(Bx) + C: amplitude = |A|, period = 2π/|B|, vertical shift = C.',
+          ai:'CalcBridge Practice Partner: I need practice on D9a — identifying the amplitude, period, and vertical shift of a trig function. Please confirm the skill and show me the menu.' },
+      ]
+    },
+  ],
+};
+
+let currentTest = 'A';
+let currentProb = null;
+
+function selectTest(test, btn) {
+  currentTest = test;
+  currentProb = null;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+  hideResult();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('problemGrid');
+  const probs = DATA[currentTest];
+  grid.innerHTML = '';
+  probs.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'prob-btn';
+    btn.id = 'pb-' + i;
+    btn.onclick = () => selectProblem(i);
+    btn.innerHTML = `<span class="prob-num">${i + 1}</span><span class="prob-skill">${p.short}</span>`;
+    grid.appendChild(btn);
+  });
+}
+
+function selectProblem(i) {
+  currentProb = i;
+  document.querySelectorAll('.prob-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pb-' + i).classList.add('active');
+  showResult(DATA[currentTest][i], i);
+}
+
+function hideResult() {
+  document.getElementById('resultCard').classList.remove('show');
+  document.getElementById('placeholder').style.display = 'block';
+}
+
+function covLabel(cov) {
+  if (cov === 'full') return '<span class="cov-pill cov-full">✓ Fully covered in the course</span>';
+  if (cov === 'part') return '<span class="cov-pill cov-part">⚠ Partially covered — see notes below</span>';
+  return '<span class="cov-pill cov-gap">⚠ Coverage gap — additional resource coming</span>';
+}
+
+function showResult(p, i) {
+  const testName = { A: 'Diagnostic A — Algebra', B: 'Diagnostic B — Analytic Geometry', C: 'Diagnostic C — Functions', D: 'Diagnostic D — Trigonometry' };
+  document.getElementById('rTag').textContent = `${testName[currentTest]} · Problem ${i + 1}`;
+  document.getElementById('rTitle').textContent = p.skill;
+
+  let html = '';
+
+  // Coverage pill + integral badge
+  html += `<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${covLabel(p.cov)}`;
+  if (p.sym) html += `<span class="int-badge">∫ CalcBridge skill</span>`;
+  html += `</div>`;
+
+  // Divider
+  html += `<hr class="divider">`;
+
+  // Section 2 — Foundational Fluency
+  if (p.ff) {
+    html += `<div class="resource-row">
+      <div class="resource-icon icon-ff">📘</div>
+      <div class="resource-content">
+        <div class="resource-label">Section 2 · Foundational Fluency</div>
+        <div class="resource-text">${p.ff}</div>
+      </div>
+    </div>`;
+  }
+
+  // Section 3 — CBC
+  if (p.cbc) {
+    html += `<div class="resource-row">
+      <div class="resource-icon icon-cbc">📗</div>
+      <div class="resource-content">
+        <div class="resource-label">Section 3 · Calculus Before Calculus</div>
+        <div class="resource-text">${p.cbc}</div>
+      </div>
+    </div>`;
+  }
+
+  // Neither section covered
+  if (!p.ff && !p.cbc && !p.gap) {
+    html += `<div class="resource-row">
+      <div class="resource-icon icon-gap">⚠️</div>
+      <div class="resource-content">
+        <div class="resource-label">Coverage note</div>
+        <div class="resource-text gap">This skill is not yet fully addressed in the current course materials. Check back for updates.</div>
+      </div>
+    </div>`;
+  }
+
+  if (p.gap) {
+    html += `<div class="resource-row">
+      <div class="resource-icon icon-gap">⚠️</div>
+      <div class="resource-content">
+        <div class="resource-label">Coverage note</div>
+        <div class="resource-text gap">This skill is not currently covered in either course section. A dedicated practice resource is being developed for CalcBridge.</div>
+      </div>
+    </div>`;
+  }
+
+  // App link
+  if (p.app) {
+    html += `<div class="resource-row">
+      <div class="resource-icon icon-app">⚡</div>
+      <div class="resource-content">
+        <div class="resource-label">Interactive resource</div>
+        <div class="resource-text">
+          ${p.app.href !== '#'
+            ? `<a class="resource-link" href="${p.app.href}" target="_blank" rel="noopener">${p.app.label} →</a>`
+            : `<span style="color:var(--muted);font-style:italic">${p.app.label}</span>`
+          }
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // Legacy AI prompts section (for items that have topic-level prompts)
+  if (p.prompts) {
+    const pr = p.prompts;
+    html += `<hr class="divider">
+    <div class="ai-section">
+      <button class="ai-toggle" onclick="toggleAI(this)" aria-expanded="false">
+        💬 Talk to an AI About This Topic
+        <span class="ai-toggle-icon">▾</span>
+      </button>
+      <div class="ai-body">
+        <p class="ai-intro">Copy any prompt below and paste it into ChatGPT, Claude, Gemini, or any AI chatbot. Each prompt is designed to give you a different kind of support.</p>
+
+        <div class="prompt-block">
+          <div class="prompt-type type-explain">📖 Explain It</div>
+          <div class="prompt-row">
+            <span class="prompt-text">${pr.explain}</span>
+            <button class="copy-btn" onclick="copyLegacyPrompt(this,'explain')">Copy</button>
+          </div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-type type-explore">🔍 Explore the Concept</div>
+          <div class="prompt-row">
+            <span class="prompt-text">${pr.explore}</span>
+            <button class="copy-btn" onclick="copyLegacyPrompt(this,'explore')">Copy</button>
+          </div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-type type-practice">🎯 Practice with Coaching</div>
+          <div class="prompt-row">
+            <span class="prompt-text">${pr.practice}</span>
+            <button class="copy-btn" onclick="copyLegacyPrompt(this,'practice')">Copy</button>
+          </div>
+        </div>
+
+        <div class="followup-card">
+          <div class="followup-label">💬 Follow-up prompts to keep the conversation going</div>
+          <ul class="followup-list">
+            ${pr.followup.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // Practice by Sub-Type section
+  if (p.parts && p.parts.length > 0) {
+    const count = p.parts.length;
+    html += `<hr class="divider">
+    <div class="practice-section">
+      <button class="practice-toggle" onclick="togglePractice(this)" aria-expanded="false">
+        🎯 Practice by Sub-Type (${count} type${count > 1 ? 's' : ''})
+        <span class="practice-toggle-icon">▾</span>
+      </button>
+      <div class="practice-body">
+        <p class="practice-intro">Each card below is a specific sub-type from this problem. Work the practice problem on paper, check your answer, then open the Play Lab AI for coached practice on that exact sub-skill.</p>
+        <div class="parts-list">`;
+
+    p.parts.forEach((pt, idx) => {
+      const uid = `pt_${currentTest}${i}_${idx}`;
+      html += `
+          <div class="part-card">
+            <div class="part-header">
+              <span class="part-code">${pt.code}</span>
+              <span class="part-label">${pt.label}</span>
+            </div>
+            <div class="part-body">
+              <div class="part-actions">
+                <button class="part-btn btn-problem" onclick="toggleProblem('${uid}', this)">Show Problem</button>
+                <button class="part-btn btn-answer" onclick="toggleAnswer('${uid}', this)" style="display:none">Show Answer</button>
+                <button class="part-btn btn-ai" onclick="copyAIPrompt(this, '${escapeAIPrompt(pt.ai)}')">AI Practice ↗</button>
+              </div>
+              <div class="part-problem" id="${uid}_q">${pt.q}</div>
+              <div class="part-answer" id="${uid}_a">
+                <strong>Answer:</strong> ${pt.a}
+                ${pt.hint ? `<div class="part-hint">💡 ${pt.hint}</div>` : ''}
+              </div>
+            </div>
+          </div>`;
+    });
+
+    html += `
+        </div>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('rBody').innerHTML = html;
+  document.getElementById('resultCard').classList.add('show');
+  document.getElementById('placeholder').style.display = 'none';
+}
+
+function escapeAIPrompt(str) {
+  return str.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+}
+
+function toggleAI(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
+function togglePractice(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
+function toggleProblem(uid, btn) {
+  const qEl = document.getElementById(uid + '_q');
+  const aEl = document.getElementById(uid + '_a');
+  const ansBtn = btn.nextElementSibling; // the answer button
+
+  const isShown = qEl.classList.contains('show');
+  if (!isShown) {
+    qEl.classList.add('show');
+    btn.textContent = 'Hide Problem';
+    btn.classList.add('shown');
+    ansBtn.style.display = 'inline-flex';
+    // hide answer if re-showing problem
+    aEl.classList.remove('show');
+    ansBtn.textContent = 'Show Answer';
+    ansBtn.classList.remove('shown');
+  } else {
+    qEl.classList.remove('show');
+    btn.textContent = 'Show Problem';
+    btn.classList.remove('shown');
+    ansBtn.style.display = 'none';
+    aEl.classList.remove('show');
+  }
+}
+
+function toggleAnswer(uid, btn) {
+  const aEl = document.getElementById(uid + '_a');
+  const isShown = aEl.classList.contains('show');
+  if (!isShown) {
+    aEl.classList.add('show');
+    btn.textContent = 'Hide Answer';
+    btn.classList.add('shown');
+  } else {
+    aEl.classList.remove('show');
+    btn.textContent = 'Show Answer';
+    btn.classList.remove('shown');
+  }
+}
+
+function copyAIPrompt(btn, promptText) {
+  const decoded = promptText.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+  // Open Play Lab first — must be synchronous inside the click handler
+  // so the browser treats it as user-initiated (not a blocked popup)
+  if (PLAY_LAB_URL) {
+    window.open(PLAY_LAB_URL, '_blank', 'noopener');
+  }
+  const finish = () => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'AI Practice ↗'; btn.classList.remove('copied'); }, 2000);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(decoded).then(finish).catch(() => fallbackCopy(decoded, finish));
+  } else {
+    fallbackCopy(decoded, finish);
+  }
+}
+
+function copyLegacyPrompt(btn, key) {
+  const text = DATA[currentTest][currentProb].prompts[key];
+  const finish = () => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(finish).catch(() => fallbackCopy(text, finish));
+  } else {
+    fallbackCopy(text, finish);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  if (cb) cb();
+}
+
+// Init
+renderGrid();
+</script>
+</body>
+</html>

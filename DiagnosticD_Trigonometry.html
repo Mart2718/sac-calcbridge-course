@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnostic Test D: Trigonometry — CalcBridge</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+  :root {
+    --teal:   #0D5C73;
+    --teal2:  #1B7A96;
+    --orange: #D4622A;
+    --gold:   #E8A020;
+    --green:  #2E7D32;
+    --red:    #C62828;
+    --bg:     #F4F7F9;
+    --card:   #FFFFFF;
+    --border: #D0DDE5;
+    --text:   #1A2A33;
+    --muted:  #5A7080;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg);
+         color: var(--text); font-size: 15px; line-height: 1.6; }
+
+  /* ── Header ── */
+  .site-header { background: var(--teal); color: white; padding: 0; }
+  .header-inner { max-width: 860px; margin: 0 auto; padding: 28px 24px 20px; }
+  .header-eyebrow { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+                    opacity: .75; margin-bottom: 4px; }
+  .header-title { font-size: 28px; font-weight: 700; margin-bottom: 2px; }
+  .header-sub { font-size: 14px; opacity: .85; }
+  .header-nav { background: var(--teal2); }
+  .header-nav-inner { max-width: 860px; margin: 0 auto; padding: 0 24px;
+                       display: flex; gap: 24px; }
+  .nav-link { color: rgba(255,255,255,.8); text-decoration: none; font-size: 13px;
+              padding: 10px 0; display: inline-block; border-bottom: 3px solid transparent; }
+  .nav-link:hover, .nav-link.active { color: #fff; border-bottom-color: var(--orange); }
+
+  /* ── Tally bar ── */
+  .tally-bar { background: white; border-bottom: 2px solid var(--border);
+               position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .tally-inner { max-width: 860px; margin: 0 auto; padding: 10px 24px;
+                 display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .tally-label { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .tally-chip { display: inline-flex; align-items: center; gap: 5px;
+                padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .chip-got  { background: #E8F5E9; color: var(--green); }
+  .chip-almost { background: #FFF8E1; color: #B26A00; }
+  .chip-need { background: #FFEBEE; color: var(--red); }
+  .tally-progress { flex: 1; min-width: 120px; }
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg,var(--teal),var(--teal2));
+                   border-radius: 3px; transition: width .4s; }
+  .progress-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Main layout ── */
+  .main { max-width: 860px; margin: 0 auto; padding: 28px 24px 60px; }
+  .intro-card { background: white; border: 1px solid var(--border); border-radius: 10px;
+                padding: 20px 24px; margin-bottom: 28px; border-left: 4px solid var(--teal); }
+  .intro-card h2 { font-size: 15px; color: var(--teal); margin-bottom: 6px; }
+  .intro-card p { font-size: 14px; color: var(--muted); }
+
+  /* ── Question card ── */
+  .q-section { margin-bottom: 10px; border-radius: 10px; overflow: hidden;
+               border: 1px solid var(--border); background: var(--card);
+               box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .q-header { padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px;
+              cursor: pointer; user-select: none; }
+  .q-header:hover { background: #F8FBFD; }
+  .q-num { width: 32px; height: 32px; background: var(--teal); color: white;
+           border-radius: 50%; display: flex; align-items: center; justify-content: center;
+           font-size: 14px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .q-text { flex: 1; font-size: 15px; font-weight: 600; }
+  .q-status { font-size: 11px; color: var(--muted); white-space: nowrap; padding-top: 4px; }
+  .q-chevron { color: var(--muted); transition: transform .25s; font-size: 18px; padding-top: 3px; }
+  .q-section.open .q-chevron { transform: rotate(180deg); }
+
+  .q-body { padding: 0 20px 20px 66px; display: none; }
+  .q-section.open .q-body { display: block; }
+
+  /* ── Part row ── */
+  .part { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px;
+          overflow: hidden; }
+  .part-q { padding: 12px 16px; background: #FAFCFE; display: flex;
+             align-items: baseline; gap: 10px; }
+  .part-label { font-weight: 700; color: var(--teal); min-width: 22px; font-size: 14px; }
+  .part-math { font-size: 15px; flex: 1; }
+
+  .part-controls { padding: 8px 16px; background: #F4F7F9; display: flex;
+                   align-items: center; gap: 8px; flex-wrap: wrap; }
+  .btn-show { background: var(--orange); color: white; border: none; border-radius: 6px;
+              padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+              transition: background .2s; }
+  .btn-show:hover { background: #B8521F; }
+  .btn-show.shown { background: var(--muted); }
+
+  .rating-group { display: flex; gap: 6px; margin-left: auto; }
+  .btn-rate { border: 2px solid; border-radius: 6px; padding: 5px 10px;
+              font-size: 12px; font-weight: 700; cursor: pointer; background: white;
+              transition: all .15s; }
+  .btn-got  { border-color: var(--green); color: var(--green); }
+  .btn-almost { border-color: #B26A00; color: #B26A00; }
+  .btn-need { border-color: var(--red); color: var(--red); }
+  .btn-got.active  { background: var(--green); color: white; }
+  .btn-almost.active { background: #B26A00; color: white; }
+  .btn-need.active { background: var(--red); color: white; }
+
+  .part-answer { padding: 12px 16px; background: #E8F4F9; border-top: 1px solid #C5DDE8;
+                 display: none; }
+  .part-answer.visible { display: block; }
+  .answer-label { font-size: 11px; font-weight: 700; text-transform: uppercase;
+                  letter-spacing: 1px; color: var(--teal); margin-bottom: 4px; }
+  .answer-math { font-size: 15px; }
+  .answer-note { font-size: 13px; color: var(--muted); margin-top: 4px; font-style: italic; }
+
+  /* ── Study plan ── */
+  .study-plan { margin-top: 40px; background: white; border: 1px solid var(--border);
+                border-radius: 10px; overflow: hidden; }
+  .study-plan-header { background: var(--teal); color: white; padding: 16px 20px; }
+  .study-plan-header h2 { font-size: 16px; font-weight: 700; }
+  .study-plan-header p { font-size: 13px; opacity: .8; margin-top: 2px; }
+  .study-plan-body { padding: 20px; }
+  .plan-section { margin-bottom: 16px; }
+  .plan-section-title { font-size: 13px; font-weight: 700; text-transform: uppercase;
+                         letter-spacing: 1px; margin-bottom: 8px; }
+  .plan-empty { color: var(--muted); font-size: 13px; font-style: italic; }
+  .plan-item { background: var(--bg); border-radius: 6px; padding: 8px 12px;
+               margin-bottom: 4px; font-size: 14px; }
+  .plan-item span { font-weight: 600; color: var(--teal); }
+  #plan-got  .plan-section-title { color: var(--green); }
+  #plan-almost .plan-section-title { color: #B26A00; }
+  #plan-need .plan-section-title { color: var(--red); }
+
+  
+  /* ── Video review card (bottom) ── */
+  .vid-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    margin-top: 40px;
+  }
+  .vid-card-header {
+    background: var(--teal); color: white;
+    padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .vid-card-header h2 { font-size: 16px; font-weight: 700; margin: 0; }
+  .vid-card-header p  { font-size: 13px; opacity: .8; margin: 2px 0 0; }
+  .vid-thumb-wrap {
+    position: relative; display: block;
+    background: #000; cursor: pointer;
+    text-decoration: none;
+  }
+  .vid-thumb-wrap img {
+    display: block; width: 100%;
+    aspect-ratio: 16/9; object-fit: cover; opacity: .85;
+    transition: opacity .2s;
+  }
+  .vid-thumb-wrap:hover img { opacity: 1; }
+  .vid-play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px; height: 72px;
+    background: rgba(0,0,0,.75); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .vid-thumb-wrap:hover .vid-play-btn { background: #FF0000; }
+  .vid-play-btn svg { width: 32px; height: 32px; fill: white; margin-left: 4px; }
+  .vid-card-footer {
+    padding: 14px 20px; background: #F4F7F9;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .vid-card-footer p { font-size: 13px; color: var(--muted); margin: 0; }
+  .vid-yt-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #FF0000; color: white; text-decoration: none;
+    padding: 8px 16px; border-radius: 6px;
+    font-size: 13px; font-weight: 700;
+    transition: background .2s; white-space: nowrap;
+  }
+  .vid-yt-link:hover { background: #CC0000; }
+
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Santa Ana College &nbsp;·&nbsp; Mathematics Department</div>
+    <div class="header-title">CalcBridge Math Academy</div>
+    <div style="font-size:17px;font-weight:500;opacity:.88;margin-top:2px;">Diagnostic Test D: Trigonometry</div>
+    <div class="header-sub">Building the Bridge to Calculus &nbsp;·&nbsp; Calculus Readiness Boot Camp</div>
+  </div>
+  <nav class="header-nav"><div class="header-nav-inner"><a class="nav-link" href="index.html">&#x2302; Home</a>
+<a class="nav-link" href="DiagnosticA_Algebra.html">Test A: Algebra</a>
+<a class="nav-link" href="DiagnosticB_AnalyticGeometry.html">Test B: Analytic Geometry</a>
+<a class="nav-link" href="DiagnosticC_Functions.html">Test C: Functions</a>
+<a class="nav-link active" href="DiagnosticD_Trigonometry.html">Test D: Trigonometry</a>
+</div></nav>
+</header>
+
+<!-- Tally bar -->
+<div class="tally-bar">
+  <div class="tally-inner">
+    <span class="tally-label">My ratings:</span>
+    <span class="tally-chip chip-got">✓ Got It: <span id="t-got">0</span></span>
+    <span class="tally-chip chip-almost">≈ Almost: <span id="t-almost">0</span></span>
+    <span class="tally-chip chip-need">✗ Need Practice: <span id="t-need">0</span></span>
+    <div class="tally-progress">
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="progress-label" id="prog-label">0 of ? parts rated</div>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+  <div class="intro-card">
+    <h2>How to use this page</h2>
+    <p>Trigonometry underlies all of calculus involving periodic phenomena, and the derivatives of sine and cosine are foundational. Make sure unit circle values, identities, and graph shapes are fluent.</p>
+  </div>
+
+  
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">1</div>
+    <div class="q-text">Convert from degrees to radians.</div>
+    <div class="q-status">0/2 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q1a" data-qtxt="300°">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$300°$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{5\pi}{3}$</div>
+    <div class="answer-note">$300 \cdot \dfrac{\pi}{180} = \dfrac{5\pi}{3}$</div>
+  </div>
+</div>
+<div class="part" data-id="q1b" data-qtxt="-18°">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$-18°$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$-\dfrac{\pi}{10}$</div>
+    <div class="answer-note">$-18 \cdot \dfrac{\pi}{180} = -\dfrac{\pi}{10}$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">2</div>
+    <div class="q-text">Convert from radians to degrees.</div>
+    <div class="q-status">0/2 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q2a" data-qtxt="\dfrac{5\pi}{6}">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\dfrac{5\pi}{6}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$150°$</div>
+    <div class="answer-note">$\dfrac{5\pi}{6} \cdot \dfrac{180}{\pi} = 150°$</div>
+  </div>
+</div>
+<div class="part" data-id="q2b" data-qtxt="2 \text{ rad}">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$2 \text{ rad}$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\approx 114.6°$</div>
+    <div class="answer-note">$2 \cdot \dfrac{180}{\pi} = \dfrac{360}{\pi} \approx 114.6°$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">3</div>
+    <div class="q-text">Find the length of an arc of a circle with radius $12$ cm if the arc subtends a central angle of $30°$.</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q3a" data-qtxt="s = ?">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$s = ?$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$2\pi \text{ cm}$</div>
+    <div class="answer-note">Convert: $30° = \dfrac{\pi}{6}$ rad. Arc length: $s = r\theta = 12 \cdot \dfrac{\pi}{6} = 2\pi$ cm</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">4</div>
+    <div class="q-text">Find the exact values.</div>
+    <div class="q-status">0/3 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q4a" data-qtxt="\tan\left(\dfrac{\pi}{3}\right)">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\tan\left(\dfrac{\pi}{3}\right)$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\sqrt{3}$</div>
+    <div class="answer-note">From the 30-60-90 triangle or unit circle: $\tan(\pi/3) = \sqrt{3}$</div>
+  </div>
+</div>
+<div class="part" data-id="q4b" data-qtxt="\sin\left(\dfrac{7\pi}{6}\right)">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$\sin\left(\dfrac{7\pi}{6}\right)$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$-\dfrac{1}{2}$</div>
+    <div class="answer-note">$7\pi/6$ is in Q3, reference angle $\pi/6$. Sine is negative in Q3: $\sin(7\pi/6) = -\frac{1}{2}$</div>
+  </div>
+</div>
+<div class="part" data-id="q4c" data-qtxt="\sec\left(\dfrac{5\pi}{3}\right)">
+  <div class="part-q">
+    <div class="part-label">(c)</div>
+    <div class="part-math">$\sec\left(\dfrac{5\pi}{3}\right)$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$2$</div>
+    <div class="answer-note">$5\pi/3$ is in Q4, reference angle $\pi/3$. $\cos(5\pi/3) = \frac{1}{2}$, so $\sec = 2$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">5</div>
+    <div class="q-text">In the right triangle below, the hypotenuse has length $24$. Express the lengths $a$ and $b$ in terms of $\theta$.</div>
+    <div class="q-status">0/2 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+    <div style="text-align:center;margin:14px 0 6px;"><svg viewBox="0 0 270 185" width="270" style="display:inline-block;background:#fff;border:1px solid #C5DDE8;border-radius:8px;padding:6px;">
+<polygon points="40,155 220,20 220,155" fill="#EBF4FA" stroke="#2E75B6" stroke-width="2" stroke-linejoin="round"/>
+<text x="118" y="72" font-size="14" font-family="Arial,sans-serif" fill="#222" text-anchor="middle" font-weight="600">24</text>
+<text x="234" y="92" font-size="14" font-family="Arial,sans-serif" fill="#222" text-anchor="start" font-style="italic">a</text>
+<text x="130" y="173" font-size="14" font-family="Arial,sans-serif" fill="#222" text-anchor="middle" font-style="italic">b</text>
+<text x="66" y="149" font-size="14" font-family="Arial,sans-serif" fill="#222" text-anchor="start" font-style="italic">θ</text>
+<polyline points="220,145 210,145 210,155" fill="none" stroke="#2E75B6" stroke-width="1.5"/>
+<path d="M62,155 A22,22 0 0,0 57.5,141.8" fill="none" stroke="#2E75B6" stroke-width="1.5"/>
+</svg></div><p style="font-size:12px;color:#888;text-align:center;margin-top:2px;margin-bottom:10px;">Express lengths $a$ and $b$ in terms of $\theta$.</p>
+
+<div class="part" data-id="q5a" data-qtxt="a = ?">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$a = ?$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$a = 24\sin\theta$</div>
+    <div class="answer-note">$\sin\theta = a/24$, so $a = 24\sin\theta$</div>
+  </div>
+</div>
+<div class="part" data-id="q5b" data-qtxt="b = ?">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$b = ?$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$b = 24\cos\theta$</div>
+    <div class="answer-note">$\cos\theta = b/24$, so $b = 24\cos\theta$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">6</div>
+    <div class="q-text">If $\sin x = \tfrac{1}{3}$ and $\sec y = \tfrac{5}{4}$, where $x$ and $y$ lie between $0$ and $\tfrac{\pi}{2}$, evaluate $\sin(x+y)$.</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q6a" data-qtxt="\sin(x+y) = ?">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\sin(x+y) = ?$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{4+6\sqrt{2}}{15}$</div>
+    <div class="answer-note">$\cos x = \dfrac{2\sqrt{2}}{3}$, $\cos y = \dfrac{4}{5}$, $\sin y = \dfrac{3}{5}$. Then $\sin(x+y) = \sin x\cos y + \cos x\sin y = \dfrac{1}{3}\cdot\dfrac{4}{5} + \dfrac{2\sqrt{2}}{3}\cdot\dfrac{3}{5}$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">7</div>
+    <div class="q-text">Prove each identity.</div>
+    <div class="q-status">0/2 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q7a" data-qtxt="\tan\theta\sin\theta + \cos\theta = \sec\theta">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\tan\theta\sin\theta + \cos\theta = \sec\theta$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\tan\theta\sin\theta + \cos\theta = \dfrac{\sin^2\theta}{\cos\theta} + \dfrac{\cos^2\theta}{\cos\theta} = \dfrac{1}{\cos\theta} = \sec\theta$</div>
+    <div class="answer-note">Start from the left side and combine over a common denominator &nbsp;($\cos\theta \neq 0$)</div>
+  </div>
+</div>
+<div class="part" data-id="q7b" data-qtxt="\dfrac{2\tan x}{1+\tan^2 x} = \sin 2x">
+  <div class="part-q">
+    <div class="part-label">(b)</div>
+    <div class="part-math">$\dfrac{2\tan x}{1+\tan^2 x} = \sin 2x$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{2\sin x/\cos x}{\sec^2 x} = 2\sin x\cos x = \sin 2x$</div>
+    <div class="answer-note">Use $1+\tan^2 x = \sec^2 x$ and simplify</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">8</div>
+    <div class="q-text">Find all values of $x$ such that $\sin 2x = \sin x$ and $0 \leq x \leq 2\pi$.</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q8a" data-qtxt="x = ?">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$x = ?$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = 0,\;\dfrac{\pi}{3},\;\pi,\;\dfrac{5\pi}{3},\;2\pi$</div>
+    <div class="answer-note">$2\sin x\cos x - \sin x = 0 \Rightarrow \sin x(2\cos x - 1) = 0$. So $\sin x = 0$ or $\cos x = \frac{1}{2}$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num">9</div>
+    <div class="q-text">Sketch the graph of $y = 1 + \sin 2x$ without using a calculator.</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">▾</div>
+  </div>
+  <div class="q-body">
+<div class="part" data-id="q9a" data-qtxt="\text{Sketch } y = 1 + \sin 2x">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">$\text{Sketch } y = 1 + \sin 2x$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"   data-rating="got">✓ Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">≈ Almost</button>
+      <button class="btn-rate btn-need"  data-rating="need">✗ Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\text{Period } \pi,\;\text{amplitude }1,\;\text{shifted up 1 unit}$</div>
+    <div class="answer-note">Start with $y = \sin x$: compress horizontally by factor 2 (period $\pi$), then shift up 1. Range: $[0, 2]$. Key points: $(0,1)$, $(\pi/4,2)$, $(\pi/2,1)$, $(3\pi/4,0)$, $(\pi,1)$</div>
+  </div>
+</div></div>
+</div>
+
+  <!-- Study Plan -->
+  <div class="study-plan">
+    <div class="study-plan-header">
+      <h2>My Study Plan</h2>
+      <p>Updates automatically as you rate each part. Use this to guide your review.</p>
+    </div>
+    <div class="study-plan-body">
+      <div class="plan-section" id="plan-need"></div>
+      <div class="plan-section" id="plan-almost"></div>
+      <div class="plan-section" id="plan-got"></div>
+    </div>
+  </div>
+
+
+  <div class="vid-card">
+  <div class="vid-card-header">
+    <div>
+      <h2>&#x1F4FA;&nbsp; Video Review &mdash; Trigonometry Review</h2>
+      <p>Watch this to review topics you marked &ldquo;Need Practice&rdquo; &mdash; your study plan above shows exactly where to focus.</p>
+    </div>
+  </div>
+  <a class="vid-thumb-wrap" href="https://www.youtube.com/watch?v=tHKMwBvGX9s" target="_blank" rel="noopener"
+     aria-label="Watch Trigonometry Review on YouTube">
+    <img src="https://img.youtube.com/vi/tHKMwBvGX9s/hqdefault.jpg" alt="Thumbnail for Trigonometry Review" loading="lazy">
+    <div class="vid-play-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+  </a>
+  <div class="vid-card-footer">
+    <p>&#x1F517; Opens on YouTube &mdash; no account required to watch.</p>
+    <a class="vid-yt-link" href="https://www.youtube.com/watch?v=tHKMwBvGX9s" target="_blank" rel="noopener">
+      &#x25B6; Watch on YouTube
+    </a>
+  </div>
+</div>
+
+
+<!-- ── Supplemental Practice ── -->
+<div style="margin-top:48px;margin-bottom:8px;">
+  <div style="background:linear-gradient(135deg,#E07B39,#C05A20);color:white;
+              border-radius:10px 10px 0 0;padding:18px 22px;">
+    <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+                opacity:.8;margin-bottom:4px;">After You Finish the Diagnostic</div>
+    <div style="font-size:20px;font-weight:700;">
+      &#x1F4DA;&nbsp; Supplemental Practice &mdash; Trigonometry
+    </div>
+    <div style="font-size:13px;opacity:.85;margin-top:4px;">
+      9 additional problems to deepen your skills &mdash;
+      each rated independently so they feed into your study plan.
+    </div>
+  </div>
+  <div style="background:#FFF8F4;border:1px solid #E07B39;border-top:none;
+              border-radius:0 0 10px 10px;padding:16px 22px 6px;">
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S1</div>
+    <div class="q-text">Degrees to Radians</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st1a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Convert $210^\circ$ to radians.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{7\pi}{6}$</div>
+    <div class="answer-note">$210 \times \dfrac{\pi}{180} = \dfrac{210\pi}{180} = \dfrac{7\pi}{6}$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S2</div>
+    <div class="q-text">Radians to Degrees</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st2a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Convert $\dfrac{4\pi}{3}$ radians to degrees.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$240^\circ$</div>
+    <div class="answer-note">$\dfrac{4\pi}{3} \times \dfrac{180}{\pi} = \dfrac{4 \times 180}{3} = 240^\circ$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S3</div>
+    <div class="q-text">Arc Length</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st3a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Find the arc length of a circle with radius $8$ m and central angle $\dfrac{3\pi}{4}$ rad.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$6\pi$ m</div>
+    <div class="answer-note">Arc length formula: $s = r\theta = 8 \cdot \dfrac{3\pi}{4} = 6\pi$ m</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S4</div>
+    <div class="q-text">Exact Values — Six Trig Functions</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st4a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Find the exact values of all six trig functions at $\dfrac{7\pi}{4}$.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\sin = -\dfrac{\sqrt{2}}{2},\; \cos = \dfrac{\sqrt{2}}{2},\; \tan = -1,\; \csc = -\sqrt{2},\; \sec = \sqrt{2},\; \cot = -1$</div>
+    <div class="answer-note">$\frac{7\pi}{4}$ is in Q4 with reference angle $\frac{\pi}{4}$. Sine is negative in Q4; cosine is positive.</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S5</div>
+    <div class="q-text">Right Triangle Trig</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st5a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">In a right triangle, the side opposite $\theta$ is $10$ and the side adjacent is $x$. Express $x$ in terms of $\theta$.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = 10\cot\theta$</div>
+    <div class="answer-note">$\tan\theta = \dfrac{\text{opp}}{\text{adj}} = \dfrac{10}{x}$, so $x = \dfrac{10}{\tan\theta} = 10\cot\theta$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S6</div>
+    <div class="q-text">Sum-Difference Identity</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st6a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Given $\cos x = \dfrac{4}{5}$ and $\sin y = \dfrac{5}{13}$ (both in Q1), evaluate $\cos(x - y)$.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$\dfrac{63}{65}$</div>
+    <div class="answer-note">$\sin x = \frac{3}{5}$, $\cos y = \frac{12}{13}$. $\cos(x-y) = \cos x\cos y + \sin x\sin y = \frac{4}{5}\cdot\frac{12}{13} + \frac{3}{5}\cdot\frac{5}{13} = \frac{48}{65} + \frac{15}{65} = \frac{63}{65}$</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S7</div>
+    <div class="q-text">Prove the Identity</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st7a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Prove: $\sec^2\theta - 1 = \tan^2\theta$</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">\sec^2\theta - 1 = (\tan^2\theta + 1) - 1 = \tan^2\theta \quad \checkmark</div>
+    <div class="answer-note">Start with the Pythagorean identity $\tan^2\theta + 1 = \sec^2\theta$, then subtract 1 from both sides &nbsp;($\cos\theta \neq 0$).</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S8</div>
+    <div class="q-text">Solving Trig Equations</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st8a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Solve $\cos 2x = \cos x$ for $0 \leq x \leq 2\pi$.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">$x = 0,\; \dfrac{2\pi}{3},\; \dfrac{4\pi}{3},\; 2\pi$</div>
+    <div class="answer-note">Use $\cos 2x = 2\cos^2 x - 1$: $2\cos^2 x - \cos x - 1 = 0 \Rightarrow (2\cos x + 1)(\cos x - 1) = 0$. So $\cos x = 1$ or $\cos x = -\frac{1}{2}$.</div>
+  </div>
+</div></div>
+</div>
+<div class="q-section">
+  <div class="q-header">
+    <div class="q-num" style="background:#E07B39;">S9</div>
+    <div class="q-text">Graphing</div>
+    <div class="q-status">0/1 rated</div>
+    <div class="q-chevron">&#x25BE;</div>
+  </div>
+  <div class="q-body"><div class="part" data-id="st9a" data-qtxt="a">
+  <div class="part-q">
+    <div class="part-label">(a)</div>
+    <div class="part-math">Sketch $y = 2\cos\!\left(x - \dfrac{\pi}{2}\right)$ without a calculator.</div>
+  </div>
+  <div class="part-controls">
+    <button class="btn-show">Show Answer</button>
+    <div class="rating-group">
+      <button class="btn-rate btn-got"    data-rating="got">&#x2713; Got it</button>
+      <button class="btn-rate btn-almost" data-rating="almost">&#x2248; Almost</button>
+      <button class="btn-rate btn-need"   data-rating="need">&#x2717; Need Practice</button>
+    </div>
+  </div>
+  <div class="part-answer">
+    <div class="answer-label">Answer</div>
+    <div class="answer-math">\text{Amplitude } 2,\; \text{period } 2\pi,\; \text{phase shift } \tfrac{\pi}{2} \text{ right}</div>
+    <div class="answer-note">Equivalently $y = 2\sin x$ (since $\cos(x - \frac{\pi}{2}) = \sin x$). Key points: $(0,0)$, $(\frac{\pi}{2}, 2)$, $(\pi, 0)$, $(\frac{3\pi}{2}, -2)$, $(2\pi, 0)$.</div>
+  </div>
+</div></div>
+</div>
+  </div>
+</div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<script>
+// ── Render math ──
+renderMathInElement(document.body, {
+  delimiters: [
+    {left: '\$\$', right: '\$\$', display: true},
+    {left: '\$', right: '\$', display: false}
+  ]
+});
+// ── Toggle question open/close ──
+document.querySelectorAll('.q-header').forEach(h => {
+  h.addEventListener('click', () => {
+    h.closest('.q-section').classList.toggle('open');
+  });
+});
+
+// ── Show/hide answer ──
+document.querySelectorAll('.btn-show').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const part = btn.closest('.part');
+    const ans  = part.querySelector('.part-answer');
+    const vis  = ans.classList.toggle('visible');
+    btn.textContent = vis ? 'Hide Answer' : 'Show Answer';
+    btn.classList.toggle('shown', vis);
+  });
+});
+
+// ── Rating ──
+let ratings = {};  // key: partId → 'got'|'almost'|'need'
+document.querySelectorAll('.btn-rate').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const part   = btn.closest('.part');
+    const partId = part.dataset.id;
+    const rating = btn.dataset.rating;
+    // deselect all in group
+    part.querySelectorAll('.btn-rate').forEach(b => b.classList.remove('active'));
+    // select this one (toggle off if same)
+    if (ratings[partId] === rating) {
+      delete ratings[partId];
+    } else {
+      btn.classList.add('active');
+      ratings[partId] = rating;
+    }
+    updateTally();
+    updatePlan();
+    updateQStatus(part);
+  });
+});
+
+function updateTally() {
+  const vals = Object.values(ratings);
+  const got    = vals.filter(v=>v==='got').length;
+  const almost = vals.filter(v=>v==='almost').length;
+  const need   = vals.filter(v=>v==='need').length;
+  const total  = document.querySelectorAll('.part').length;
+  const rated  = vals.length;
+  document.getElementById('t-got').textContent    = got;
+  document.getElementById('t-almost').textContent = almost;
+  document.getElementById('t-need').textContent   = need;
+  document.getElementById('prog-fill').style.width = (rated/total*100)+'%';
+  document.getElementById('prog-label').textContent = `${rated} of ${total} parts rated`;
+}
+
+function updateQStatus(part) {
+  const section = part.closest('.q-section');
+  const parts   = section.querySelectorAll('.part');
+  const rated   = [...parts].filter(p => ratings[p.dataset.id]).length;
+  section.querySelector('.q-status').textContent =
+    rated === parts.length ? '✓ Complete' : `${rated}/${parts.length} rated`;
+}
+
+function updatePlan() {
+  const sections = ['got','almost','need'];
+  const labels   = {'got':'✓ Got It','almost':'≈ Almost','need':'✗ Need Practice'};
+  sections.forEach(r => {
+    const div   = document.getElementById('plan-'+r);
+    const items = Object.entries(ratings).filter(([,v])=>v===r);
+    div.innerHTML = `<div class="plan-section-title">${labels[r]} (${items.length})</div>`;
+    if (items.length === 0) {
+      div.innerHTML += `<p class="plan-empty">None yet.</p>`;
+    } else {
+      items.forEach(([id]) => {
+        const el = document.querySelector(`.part[data-id="${id}"]`);
+        const label = el.querySelector('.part-label').textContent;
+        const qnum  = el.closest('.q-section').querySelector('.q-num').textContent;
+        div.innerHTML += `<div class="plan-item"><span>Q${qnum}${label}</span> — ${el.dataset.qtxt}</div>`;
+      });
+    }
+  });
+}
+
+// init tally
+updateTally();
+updatePlan();
+</script>
+
+</body>
+</html>
