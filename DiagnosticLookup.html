@@ -371,6 +371,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit G — Polynomials</strong><br>G.2 Properties of Exponents<br>G.2b Negative Exponent Definition',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the exponent rules — negative exponents, fractional exponents, and what makes (−2)⁴ different from −2⁴? Walk me through one example of each.",
+        explore: "I know 2³ = 8 and 2⁻³ = 1/8. Can you help me see why a negative exponent means 'reciprocal'? Where does that rule actually come from?",
+        practice: "I need to simplify (3/2)⁻² without a calculator. Can you tutor me step by step? Don't give me the answer — ask me what the first move is.",
+        followup: ["Can you give me another example?", "What is the difference between (−3)⁴ and −3⁴?", "What happens when the exponent is 0?", "How does this connect to scientific notation?"]
+      },
       parts: [
         { code:'A1a', label:'Negative base, even exponent',
           q:'Evaluate (−2)⁶',
@@ -410,6 +416,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit G — Polynomials</strong><br>G.2a Simplify with Exponent Properties<br>G.2b Use the Definition of a Negative Exponent',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the main exponent properties — product rule, quotient rule, power rule — and show me one example of each?",
+        explore: "When I multiply x² · x³ I get x⁵. I can also think of it as (x·x)(x·x·x). Can you help me see why the add-the-exponents rule makes sense from first principles?",
+        practice: "I need to simplify (2x²y)(3xy²)². Can you tutor me without giving me the answer? Ask me what I should do first.",
+        followup: ["Can you say that differently?", "What if the bases are different — can I still combine them?", "How do I handle a negative inside a power?", "Show me a trickier example."]
+      },
       parts: [
         { code:'A2a', label:'Simplify radical expressions',
           q:'Simplify √75 − √12',
@@ -434,6 +446,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit G — Polynomials</strong><br>G.3c Multiply Binomials (FOIL)<br>G.3d Multiply a Polynomial by a Polynomial<br>G.3e Special Products',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to expand and simplify polynomial expressions? Cover FOIL for binomials and the special products (a+b)², (a−b)², and (a+b)(a−b).",
+        explore: "Why is (a+b)² not equal to a²+b²? I keep making that mistake. Can you help me see geometrically or algebraically why we get the middle term 2ab?",
+        practice: "I need to expand (3x − 2)³. Can you tutor me? Don't do it for me — ask me how I might start breaking this down.",
+        followup: ["Can you show me the geometric square model for (a+b)²?", "What is the pattern for (a−b)³?", "How does this connect to Pascal's triangle?", "Can you give me a practice problem?"]
+      },
       parts: [
         { code:'A3a', label:'Distributive property',
           q:'Expand and simplify 5(2x−3) − 2(x+4)',
@@ -468,6 +486,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit H — Factoring</strong><br>H.1 GCF and Factoring by Grouping<br>H.2 Factor Trinomials<br>H.3 Factor Special Products<br>H.4 General Factoring Strategy',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the main factoring strategies? Cover GCF, factoring trinomials, difference of squares, sum/difference of cubes, and when to use each.",
+        explore: "I can expand (x+3)(x−2) easily. But going backwards — factoring x²+x−6 — feels hard. Can you help me understand what I am actually looking for when I factor?",
+        practice: "I need to factor 6x²+x−2 completely. Can you tutor me? Don't factor it for me — ask me what I should try first.",
+        followup: ["What if nothing seems to factor — how do I know it is prime?", "Can you give me a sum of cubes example?", "How do I check my factoring?", "What is the difference between factoring over integers vs. reals?"]
+      },
       parts: [
         { code:'A4a', label:'Difference of squares',
           q:'Factor 9x² − 16',
@@ -507,6 +531,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit I — Rational Expressions</strong><br>I.1 Multiply and Divide<br>I.2 Add and Subtract<br>I.3 Simplify Complex Fractions',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to simplify, multiply, divide, add, and subtract rational expressions? Walk me through one example of adding fractions with unlike polynomial denominators.",
+        explore: "Adding 1/x + 1/y looks like it should give 1/(x+y), but that is wrong. Can you help me understand why, and what the correct process is?",
+        practice: "I need to simplify (x²−4)/(x²−x−2). Can you tutor me? Don't simplify it for me — ask me what I should do before canceling anything.",
+        followup: ["Can you say that step again differently?", "How do I find the LCD when denominators are polynomials?", "What does it mean for a rational expression to be undefined?", "Give me a complex fraction to try."]
+      },
       parts: [
         { code:'A5a', label:'Simplify by factoring',
           q:'Simplify (x²−x−6) / (x²+x−12)',
@@ -536,6 +566,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit J — Roots and Radicals</strong><br>J.5b Rationalize a One-Term Denominator<br>J.5c Rationalize a Two-Term Denominator',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain what it means to rationalize a denominator? Cover one-term denominators like 1/√5 and two-term denominators like 5/(3+√2).",
+        explore: "Why do we bother rationalizing? A calculator gives the same decimal either way. What is the mathematical reason we prefer a rational denominator?",
+        practice: "I need to rationalize 5/(3−√7). Can you tutor me? Don't do it for me — ask me what tool I need for a two-term denominator.",
+        followup: ["What is the conjugate of 2−√3?", "Can you give me one with a cube root?", "How does this connect to difference of squares?", "Can I also rationalize numerators?"]
+      },
       parts: [
         { code:'A6a', label:'Rationalize a two-term denominator',
           q:'Rationalize: √6 / (√3 − 1)',
@@ -555,6 +591,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit F — Quadratic Equations</strong><br>F.2a Complete the Square of a Binomial<br>F.2b Solve with Leading Coeff. = 1<br>F.2c Solve with Any Leading Coeff.',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to complete the square? Walk me through how to convert x²+6x+2 into vertex form step by step, and explain the geometric idea behind it.",
+        explore: "I know completing the square works, but why does adding and subtracting (b/2)² create a perfect square? Can you show me the geometric square picture that makes this make sense?",
+        practice: "I need to complete the square on 2x²−8x+3. Can you tutor me? Don't do it — ask me what I should do when the leading coefficient is not 1.",
+        followup: ["Can you say that step differently?", "How does completing the square connect to the quadratic formula?", "What does vertex form tell me about the graph?", "Give me one to try with a negative leading coefficient."]
+      },
       parts: [
         { code:'A7a', label:'Leading coefficient = 1',
           q:'Complete the square: x² + 6x + 2',
@@ -574,6 +616,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Multiple units — choose by type:</strong><br>Linear → Unit B<br>Quadratic → Unit F (F.3 Quadratic Formula)<br>Rational → I.4 Solve Rational Equations<br>Radical → J.6 Solve Radical Equations<br>Polynomial → H.5 Polynomial Equations',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you walk me through the main equation-solving strategies? Cover linear, quadratic (all three methods), rational equations and extraneous solutions, and radical equations.",
+        explore: "When I solve a rational equation I multiply both sides by the LCD. But sometimes I get a solution that does not work. Why does that happen?",
+        practice: "I need to solve 2x/(x+1) = (2x−1)/(x+1) + 1. Can you tutor me? Don't solve it — ask me what I need to watch out for with rational equations.",
+        followup: ["Can you explain extraneous solutions again?", "When should I use the quadratic formula vs. factoring?", "Give me a radical equation to try.", "How do I solve an equation with an absolute value?"]
+      },
       parts: [
         { code:'A8a', label:'Linear equation',
           q:'Solve: 2x − 3 = 7 + (1/3)x',
@@ -618,6 +666,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Multiple units — choose by type:</strong><br>Linear → B.7 Solve Linear Inequalities<br>Absolute Value → B.9 Absolute Value Inequalities<br>Rational → I.6 Rational Inequalities<br>Quadratic → F.7 Quadratic Inequalities',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how solving inequalities differs from solving equations? Cover linear, absolute value, quadratic using sign charts, and rational inequalities.",
+        explore: "When I multiply both sides of an inequality by a negative number the inequality flips. Can you help me understand why that makes sense — not just that the rule exists, but why it is true?",
+        practice: "I need to solve (x−4)/(x+1) ≥ 0 on the real line. Can you tutor me? Don't solve it — ask me what technique works for a rational inequality.",
+        followup: ["Can you explain the sign chart method again?", "What is the difference between open and closed circles on a number line?", "Can you give me a quadratic inequality to try?", "What changes when the inequality is strict (< vs. ≤)?"]
+      },
       parts: [
         { code:'A9a', label:'Compound linear inequality',
           q:'Solve −1 ≤ 3 − 2x ≤ 11, write in interval notation',
@@ -654,6 +708,12 @@ const DATA = {
       cbc: null,
       app: { label: 'Open the app', href: 'https://saccalcbridgeverifier.netlify.app/' },
       sym: true,
+      prompts: {
+        explain: "Can you explain what it means for an algebraic identity to be true for all inputs? Give me examples of common algebra shortcuts that are actually false, and show me how to test claims with specific numbers.",
+        explore: "I have seen students write √(a²+b²) = a+b. I know that is wrong, but why do so many people think it should be true? What is the intuition trap?",
+        practice: "Is it true or false that (x+y)² = x²+y² for all x and y? Can you help me think through it without just telling me the answer? Ask me to test a specific case first.",
+        followup: ["Can you give me another common algebra myth to test?", "How many counterexamples does it take to disprove a claim?", "If a claim is true for every number I test, is it definitely always true?", "How does this connect to the idea of a proof?"]
+      },
       parts: [
         { code:'A10a', label:'Distributing exponents over addition',
           q:'True or False? √(x+y) = √x + √y. Justify with a counterexample.',
@@ -695,6 +755,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit D — Linear Graphs</strong><br>D.6a Line from Slope + y-intercept<br>D.6b Line from Slope + a Point<br>D.6c Line from Two Points<br>D.6d–e Parallel and Perpendicular Lines',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the different forms for the equation of a line — slope-intercept, point-slope, and standard form — and when to use each one?",
+        explore: "Two points determine a unique line. Can you help me see why? What would have to be different about the two points for a unique line not to exist?",
+        practice: "I need to write the equation of the line through (2, −1) perpendicular to y = (3/2)x + 4. Can you tutor me? Ask me what the slope of the perpendicular line must be.",
+        followup: ["Can you say that differently?", "How do I write the equation in standard form?", "What does the y-intercept represent geometrically?", "Give me a parallel line problem to try."]
+      },
       parts: [
         { code:'B1a', label:'Line from slope and point (slope-intercept)',
           q:'Find the equation of the line through (−1, 4) with slope 2.',
@@ -724,6 +790,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit C — Linear Math Models</strong><br>Distance, Midpoint, and Circles section',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the standard form for the equation of a circle? What does each part represent, and how do I go from center (h,k) and radius r to the equation and back?",
+        explore: "The equation (x−2)²+(y+3)²=25 is a circle. Can you help me see why the standard form looks like the distance formula? What connection am I supposed to see?",
+        practice: "I need to write the equation of the circle with center (−1, 4) that passes through the origin. Can you tutor me? Ask me what I need to find first.",
+        followup: ["Can you say that again?", "What if the center is at the origin — how does the equation simplify?", "How is a circle related to the distance formula?", "Give me one where I have to find the radius from two points."]
+      },
       parts: [
         { code:'B2a', label:'Write the equation given center and a point on the circle',
           q:'Find the equation of the circle with center (2, −3) passing through (5, 1).',
@@ -738,6 +810,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit C — Linear Math Models</strong><br>Distance, Midpoint, and Circles section<br>(Pairs with Unit F · F.2 Completing the Square)',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to find the center and radius of a circle in general form like x²+y²+4x−6y−3=0? What technique do I use?",
+        explore: "The general form of a circle hides the center and radius. Why does completing the square reveal them? What is the connection between the algebra and the geometry?",
+        practice: "I need to find the center and radius of x²+y²−6x+2y−6=0. Can you tutor me through it? Don't do it for me — ask me what the first step is.",
+        followup: ["Can you say that step differently?", "How do I know when an equation represents a circle vs. a point vs. nothing?", "What if I need to complete the square for both x and y?", "Can you give me one with a leading coefficient other than 1?"]
+      },
       parts: [
         { code:'B3a', label:'Complete the square to find center and radius',
           q:'Find the center and radius of x² + y² + 4x − 8y − 5 = 0.',
@@ -752,6 +830,12 @@ const DATA = {
       cov: 'full',
       ff: '<strong>Unit C — Linear Math Models</strong><br>C.4b Use the Pythagorean Theorem<br>C: Distance, Midpoint, and Circles',
       cbc: null, app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the distance formula and midpoint formula? Where do they come from, and can you show me one example of each?",
+        explore: "The distance formula looks just like the Pythagorean theorem. Can you help me see exactly where the connection is — why are these the same thing?",
+        practice: "I need to find all points on the y-axis that are exactly 5 units from the point (3, 1). Can you tutor me? Don't solve it — ask me how to set up the distance equation.",
+        followup: ["Can you say that differently?", "How do I find the midpoint of a segment on a coordinate grid?", "Can the distance between two points ever be negative?", "Give me a problem where I use both formulas together."]
+      },
       parts: [
         { code:'B4a', label:'Slope between two points',
           q:'Find the slope of the line through (1, −3) and (4, 6).',
@@ -839,6 +923,12 @@ const DATA = {
       ff: '<strong>Unit D</strong> — D.2 Graph Linear Equations<br><strong>Unit F</strong> — F.5 Graph Quadratic Functions',
       cbc: '<strong>OpenStax 1.1</strong> — Review of Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to read information from a function graph? Cover evaluating f(a), finding inputs where f(x)=k, identifying zeros, increasing/decreasing intervals, and reading domain and range.",
+        explore: "A graph is a picture of all input-output pairs of a function. Can you help me see how every feature — intercepts, peaks, behavior at the edges — connects to something about those pairs?",
+        practice: "I am looking at a graph that passes through (0,2), reaches a maximum at (1,4), and crosses the x-axis at (3,0). Can you tutor me through reading it? Ask me what f(1) is and go from there.",
+        followup: ["Can you say that differently?", "How do I read the domain and range from a graph?", "What does it mean when the graph is below the x-axis?", "What is the difference between a y-intercept and an x-intercept?"]
+      },
       parts: [
         { code:'C1a', label:'Evaluate f(x) at a specific input',
           q:'A graph passes through (0, 3) and (2, 7). What is f(0)?',
@@ -874,6 +964,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.1</strong> — Review of Functions<br><strong>CBC #1</strong> — Rates of Change and the Difference Quotient',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain what the difference quotient [f(x+h)−f(x)]/h represents? Walk me through how to compute and simplify it for f(x) = x² step by step.",
+        explore: "The difference quotient is the slope of a secant line. Can you help me see why? What happens to that slope as h gets closer and closer to 0?",
+        practice: "I need to find and simplify the difference quotient for f(x) = 3x²−2x+1. Can you tutor me? Don't simplify it for me — ask me what f(x+h) looks like first.",
+        followup: ["Can you say that differently?", "What does h represent geometrically?", "Why do we need h≠0?", "What is this process a preview of in calculus?"]
+      },
       parts: [
         { code:'C2a', label:'Compute and simplify the difference quotient',
           q:'If f(x) = x², find and simplify (f(3+h) − f(3)) / h.',
@@ -889,6 +985,12 @@ const DATA = {
       ff: '<strong>Unit J</strong> — J.7b Domain of a Radical Function',
       cbc: '<strong>OpenStax 1.1</strong> — Review of Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to find the domain of a function? Cover the main restrictions: square roots require non-negative inputs, fractions cannot have zero denominators, and logs require positive inputs.",
+        explore: "The domain is the set of all legal inputs. Can you help me understand why √x has domain x≥0 — what actually goes wrong if I plug in a negative number?",
+        practice: "I need to find the domain of f(x) = √(x+3) / (x²−x−2). Can you tutor me? Don't give me the answer — ask me what two things I need to check.",
+        followup: ["Can you say that differently?", "How do I write the domain in interval notation?", "What if the function has both a radical and a rational part?", "Can you give me one involving a logarithm?"]
+      },
       parts: [
         { code:'C3a', label:'Rational function (denominator factors)',
           q:'Find the domain of f(x) = (x+1) / (x²−5x+6)',
@@ -914,6 +1016,12 @@ const DATA = {
       ff: '<strong>Unit F</strong> — F.6a–d Graph Quadratic Functions Using Transformations',
       cbc: '<strong>OpenStax 1.2</strong> — Basic Classes of Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain the graph transformation rules? Cover vertical and horizontal shifts, reflections across both axes, and vertical and horizontal stretches and compressions.",
+        explore: "When I write f(x−3) the graph shifts right, not left. That feels backwards. Can you help me understand intuitively why a minus inside shifts right?",
+        practice: "Starting from y=x², I need to describe how to graph y=−2(x+1)²+3. Can you tutor me? Ask me to identify each transformation one at a time.",
+        followup: ["Can you say that differently?", "What is the order of operations for stacking multiple transformations?", "What does a horizontal compression look like?", "Give me a transformation of f(x)=|x| to try."]
+      },
       parts: [
         { code:'C4a', label:'Reflection about the x-axis',
           q:'What transformation takes y = f(x) to y = −f(x)?',
@@ -939,6 +1047,12 @@ const DATA = {
       ff: '<strong>Unit D</strong> — D.2–D.5 Linear Graphs<br><strong>Unit F</strong> — F.5 Graph Quadratics Using Properties',
       cbc: '<strong>OpenStax 1.2</strong> — Basic Classes of Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to sketch the basic function families without a calculator? Cover linear, quadratic, absolute value, square root, cubic, reciprocal 1/x, and basic trig shapes.",
+        explore: "Every basic function has a parent graph shape. Can you help me see what the shape of 1/x tells me about division — why does it have two branches, and why do they never touch the axes?",
+        practice: "I need to sketch f(x) = x³−3x without a calculator. Can you tutor me? Ask me what I should find first before I start drawing.",
+        followup: ["Can you describe the shape of |x| differently?", "What key features should I always find before sketching?", "How does the graph of √x differ from x²?", "Give me a rational function sketch to try."]
+      },
       parts: [
         { code:'C5a', label:'Standard cubic y = x³',
           q:'Describe key features of y = x³: symmetry, end behavior, intercepts.',
@@ -989,6 +1103,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.1</strong> — Review of Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain what a piecewise function is and how to evaluate it? Walk me through how to decide which piece to use and what to do at the boundary points.",
+        explore: "A piecewise function uses different formulas on different intervals. Can you help me understand why continuity at the boundary matters — what does it look like on a graph when the pieces do or do not connect?",
+        practice: "I have f(x) = { x² if x<0, and 2x+1 if x≥0 }. Can you tutor me through sketching and evaluating this function? Ask me what f(−2), f(0), and f(3) are one at a time.",
+        followup: ["Can you say that differently?", "How do I find where a piecewise function is continuous?", "What is the difference between an open and closed dot on a piecewise graph?", "Can you give me a piecewise function with three pieces?"]
+      },
       parts: [
         { code:'C6a', label:'Evaluate at specific inputs',
           q:'Given f(x) = {x²+1 if x ≤ 0; 3x−1 if x > 0}, find f(−3) and f(2).',
@@ -1009,6 +1129,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.1</strong> — Review of Functions<br><strong>OpenStax 1.4</strong> — Inverse Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how function composition works? Show me how to compute (f∘g)(x) and (g∘f)(x), and explain why the order matters.",
+        explore: "In composition, f(g(x)) means apply g first, then f. Can you help me see this as a machine — what does each function do, and why does the order of the machines change the result?",
+        practice: "Given f(x)=2x+1 and g(x)=x², I need to find (f∘g)(3) and (g∘f)(3). Can you tutor me? Don't compute them for me — ask me which function I apply first for each one.",
+        followup: ["Can you say that differently?", "How do I find the domain of a composition?", "Can (f∘g)(x) ever equal (g∘f)(x)?", "How does this connect to inverse functions?"]
+      },
       parts: [
         { code:'C7a', label:'(f ∘ g)(x)',
           q:'Let f(x) = x+3 and g(x) = x². Find (f∘g)(x).',
@@ -1036,6 +1162,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to convert degrees to radians? Walk me through the conversion factor and why it works.",
+        explore: "Radians feel unnatural at first. Can you help me understand what a radian actually is geometrically — why do we use this unit at all instead of always using degrees?",
+        practice: "I need to convert 210° to radians without a calculator. Can you tutor me? Ask me what conversion factor I should start with.",
+        followup: ["Can you say that differently?", "How many radians is 360°?", "What are the radian measures for 90°, 180°, and 270°?", "Why does calculus prefer radians over degrees?"]
+      },
       parts: [
         { code:'D1a', label:'Positive degree measure',
           q:'Convert 240° to radians.',
@@ -1056,6 +1188,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to convert radians back to degrees? Walk me through converting 5π/6 to degrees step by step.",
+        explore: "I can convert π/3 to 60°, but I struggle when the radian measure does not involve π, like 1.2 radians. Can you help me see what that actually represents on the unit circle?",
+        practice: "I need to convert 7π/4 radians to degrees. Can you tutor me? Ask me what I multiply by.",
+        followup: ["Can you say that differently?", "What is 1 radian in degrees approximately?", "What are the degree equivalents of the common radian benchmarks?", "Why is the conversion factor π/180?"]
+      },
       parts: [
         { code:'D2a', label:'Standard radian fraction',
           q:'Convert 3π/4 to degrees.',
@@ -1097,6 +1235,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to find exact values of sine, cosine, and tangent for common angles? Walk me through the unit circle and the key angles I need to know cold.",
+        explore: "I know cos(60°) = 1/2, but I never remember if sin(60°) is √3/2 or 1/2. Can you give me a mental model or memory trick that makes the unit circle values stick?",
+        practice: "I need to find the exact value of tan(5π/6). Can you tutor me? Don't give me the answer — ask me what reference angle and quadrant I should think about.",
+        followup: ["Can you say that differently?", "How do I find trig values for angles greater than 2π?", "What are the signs of trig functions in each quadrant (ASTC)?", "Give me a negative angle to find the exact value for."]
+      },
       parts: [
         { code:'D4a', label:'First-quadrant unit circle value',
           q:'Find the exact value of cos(π/6).',
@@ -1122,6 +1266,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain SOH-CAH-TOA? Walk me through how to use the right triangle definitions of sine, cosine, and tangent to find missing sides or angles.",
+        explore: "SOH-CAH-TOA only works for right triangles. Can you help me see why the ratios of sides are constant for a given angle — why does it not matter how big the triangle is?",
+        practice: "In a right triangle the hypotenuse is 13 and one leg is 5. Can you tutor me through finding all trig ratios for the angle opposite the leg of length 5? Ask me what I need to find first.",
+        followup: ["Can you say that differently?", "How do I find an angle using inverse trig?", "When do I need the Pythagorean theorem here?", "Can you give me one where I find a missing side?"]
+      },
       parts: [
         { code:'D5a', label:'Find a side using SOH-CAH-TOA',
           q:'In a right triangle with hypotenuse 10 and angle θ at one vertex, express the side opposite θ.',
@@ -1212,6 +1362,12 @@ const DATA = {
       ff: null,
       cbc: '<strong>OpenStax 1.3</strong> — Trigonometric Functions',
       app: null, sym: true,
+      prompts: {
+        explain: "Can you explain how to sketch y = A sin(Bx + C) + D? Walk me through how to find the amplitude, period, phase shift, and vertical shift.",
+        explore: "The period of sin(x) is 2π, but the period of sin(2x) is π. Can you help me see intuitively why multiplying the input by 2 cuts the period in half?",
+        practice: "I need to sketch y = 3sin(2x−π) over one full period. Can you tutor me? Ask me to identify the amplitude and period before I look for the phase shift.",
+        followup: ["Can you say that differently?", "How does the graph of cosine differ from sine?", "What does a negative amplitude do to the graph?", "Give me a tangent function to analyze."]
+      },
       parts: [
         { code:'D9a', label:'Identify amplitude, period, and vertical shift',
           q:'State the amplitude, period, and vertical shift of y = 2 cos(3x) − 1.',
